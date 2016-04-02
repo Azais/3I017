@@ -53,6 +53,14 @@ public class UserTools {
 			throw new KeyNotFoundException();
 		}
 	}
+	
+	/**
+	 * Donne le login d'un utilisateur à partir de son id
+	 * @param id
+	 * @return String le login
+	 * @throws SQLException
+	 * @throws userNotFoundException
+	 */
 	public static String loginId(int id) throws SQLException, userNotFoundException{
 		Connection conn=DataBase.getMySqlConnection();
 		String query="SELECT login FROM users WHERE id="+id+";";

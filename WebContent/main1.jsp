@@ -7,8 +7,8 @@
 		<script type="text/javascript" src="connexion.js"></script>
 		<script type="text/javascript" src="script.js"></script>
 		<script type="text/javascript" src="main.js"></script>
-		<link href="main6.css" rel="stylesheet" type="text/css" />
-		<link href="style2.css" rel="stylesheet" type="text/css" />
+		<link href="css/main6.css" rel="stylesheet" type="text/css" />
+		<link href="css/style2.css" rel="stylesheet" type="text/css" />
 
 	</head>
 	<body>
