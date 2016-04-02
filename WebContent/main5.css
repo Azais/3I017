@@ -1,0 +1,393 @@
+#top {
+	height: 130px;
+	width: 100%;
+	
+}
+
+#top > div{
+	display: inline-block;
+	height: 30px;
+	width: 30%;
+	vertical-align: top;
+	margin-top: 10px;
+	margin-left: 20px;
+}
+
+
+#nav-bar {
+	display:inline-block;
+	width : 100%;
+	height: 70px;
+	vertical-align: top;
+	background-color: #299D7E;
+}
+
+#footer {
+	margin-top:10px;
+	display:inline-block;
+	width : 100%;
+	height: 150px;
+	/* vertical-align: top; */
+	background-color: #911D18;
+	color:beige;
+	/* position: fixed; */
+	/* vertical-align: bottom; */
+}
+
+#footer h2 {
+	color: beige;
+}
+
+.sub_footer {
+	display:inline-block;
+	width:22%;
+	margin-left:20px;
+}
+
+#footer a {
+	color: beige;
+	text-decoration: underline;
+}
+
+#footer a:focus, a:active, a:hover {
+	text-decoration: underline;
+}
+
+
+
+
+#nav-title {
+	margin-left:60px;
+}
+
+#nav-title h2{
+
+	color:beige;
+}
+
+#left {
+	display: inline-block;
+	width: 20%;
+	height: 100px;
+	vertical-align: top;
+	margin-left:20px;
+
+	margin-top: 200px;
+	position: fixed;
+}
+#main {
+	display: inline-block;
+	width: 78%;
+	vertical-align: top;
+	margin-top: 200px;
+	margin-left: 20%;
+}
+
+
+#full {
+	margin-top:20px;
+
+}
+
+
+
+/* Titres */
+
+h1, h2, h3, h4, h5, h6 {
+	padding-bottom: 18px;
+
+	color: #222222;
+	font-weight: normal;
+	font-family: 'Lato', sans-serif;
+}
+
+
+
+/* =LIENS
+----------------------------------------------- */
+a {
+	color: #0FBE7C;
+	text-decoration: none;
+}
+a:focus, a:active, a:hover {
+	text-decoration: none;
+}
+
+
+
+
+/*CADRES*****************************************/
+.cadre{
+	color: #FFFFFF;
+	display:inline-block;
+	margin-bottom: 30px;
+    padding: 5px 25px;
+
+	cursor: pointer;
+	background-color: #F07641;
+	border: 0px;
+
+	border-radius: 3px;
+    font-size: 16px;
+}
+.cadre:hover {
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+
+
+
+
+/* =FORMULAIRES
+----------------------------------------------- */
+input, textarea {
+ 	-webkit-border-radius: 0px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea {
+	padding: 0.6%;
+	border: 1px solid #EAEAEA;
+	line-height: 20px;
+	width: 98%;
+	margin: 0 0 10px;
+	background-color: #F8F8F8;
+
+	border-radius: 3px;
+}
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="search"]:focus,
+input[type="password"]:focus,
+textarea:focus {
+	border: 1px solid #EAEAEA;
+}
+input.s {
+	width: 60%;
+	padding: 4px 10px;
+	height: 12px;
+	color: #666666;
+	background-color: #FFFFFF;
+	margin: 0;
+	border: 1px solid #EAEAEA;
+}
+input.s:focus {
+	padding-left: 10px;
+	border-color: #EAEAEA;
+
+}
+
+
+input[type="reset"],
+input[type="button"],
+input[type="submit"]{
+   color: #FFFFFF;
+	display:inline-block;
+   margin-bottom: 30px;
+   padding: 5px 25px;
+
+	cursor: pointer;
+	background-color: #0FBE7C;
+	border: 0px;
+
+	border-radius: 3px;
+   font-size: 16px;
+}
+
+input[type="reset"]:hover,
+input[type="button"]:hover,
+input[type="submit"]:hover {
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+
+input[type="reset"]:active,
+input[type="button"]:active,
+input[type="submit"]:active {
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+
+
+
+/* FIN FORMULAIRES*/
+
+
+.ids {
+	margin-top:30px;
+	margin-left:20px;
+	position:relative
+}
+
+
+.ids > input {
+	left:30%;
+	width:60%;
+	position:absolute;
+}
+
+
+.buttons {
+	margin-top:30px;
+	margin-left:20px;
+	margin-bottom:30px;
+}
+
+
+input [value="Annuler"]{
+	margin-left:10%;
+}
+
+.pn {
+	display:inline-block;
+	margin-left:30px;
+	text-align:center;
+}
+
+.pn > span {
+	display:block;
+}
+
+.pn > input[type="text"]{
+	width:150px;
+	margin-top:10px;
+}
+
+
+/*--------------Commentaires---------*/
+
+.comment{
+	
+	height:200px;
+	overflow:hidden;
+	
+	
+}
+
+.comment_meta {
+	display: none;
+}
+.comment_general:hover > .comment_meta {
+	display: block;
+	width:100%
+}
+
+.comment:hover{
+
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+	
+}
+
+.comment_img{
+	width:100%;
+	height:auto;
+
+}
+
+.comment_picture{
+	display: inline-block;
+	width: 15%;
+	
+}
+
+
+.text_comment{
+	float:right;
+	display: inline-block;
+	vertical-align: top;
+	width: 82%;
+	height:100%;
+	overflow:scroll;
+	
+	/* margin-left: 10%; */
+}
+
+.author_comment {
+	display:inline-block;
+	vertical-align: top;
+	margin-left: 0.5%;
+
+}
+.comment_meta {
+
+	width:100%;
+	background-color: #279B6B;
+	font-size: 20px;   
+	font-family: Avant Garde,Avantgarde,Century Gothic,CenturyGothic,AppleGothic,sans-serif;
+	color: beige;
+	height:40px;
+	
+}
+
+
+
+.comment_like, .comment_friend{
+	display:inline-block;
+	height:100%;
+	width:auto;
+	float:left;
+}
+
+.comment_cancel{
+	display:inline-block;
+	height:100%;
+	width:auto;
+	float:right;
+}
+
+.comment_like:hover, .comment_friend:hover{
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+
+
+.picture_friend, .picture_like, .picture_cancel{
+	height:100%
+}
+
+
+
+
+.date_comment{
+	display:inline-block;
+	margin-bottom:10%;
+	vertical-align: top
+
+}
+
+/*---------------Menu Toggle------------*/
+
+
+
+
+
+/************Typographie*********/
+
+body,
+button,
+input,
+select,
+textarea {
+
+	font-family: 'Lato', sans-serif;
+	font-size: 15px;
+
+	line-height: 1.6;
+}
+
+div#header {
+    position: fixed;
+    width: 100%;
+    background-color: white;
+}
+
+
+
+
+body{
+	margin:0px;
+	
+}

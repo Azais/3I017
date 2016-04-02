@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>Enregistrement</title>
+		<link href="style.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="jquery-2.2.1.js"></script>
+		<script type="text/javascript" src="enregistrement.js"></script>
+		<script type="text/javascript" src="script.js"></script>
+		<script type="text/javascript" src="main.js"></script>
+	</head>
+	<body onload="javascript:main()">
+				<div id="top">
+			<div id="logo"> <a href="main.jsp"><img src="LogoTwit.png"></a> </div>
+			<div id="search">
+				<form  action="javascript:(function(){return;})()">
+				<div class="searchbar">
+					<input type="text" name="search" value="	Cherchez-moi"/>
+				</div>
+				</form>
+			</div>
+			<div id="connect"><a href="connexion.html"><div class="cadre">Se connecter</div></a> <a href="enregistrement.html"><div class="cadre">Enregistrement</div></a></div>
+
+		<div id="disconnect"><a href="monprofil.html"><div class="cadre">Mon profil</div></a> <a href="enregistrement.html"><div class="cadre" id="deco">Se déconnecter</div></a></div>
+		</div>
+		
+		<div id="nav-bar">
+			<div id="nav-title">			
+			<h2>S'enregistrer</h1>
+			</div>
+		</div>
+
+		<div id="full">
+		
+			<form class="erreur_box" action="javascript:(function(){return;})()" onSubmit="javascript:enregistrement(this)" method="post">
+				<div class="pn"><span>Prenom</span>
+					<input type="text" name="prenom" />
+				</div>
+				<div class="pn"><span>Nom</span>
+					<input type="text" name="nom" />
+				</div>
+				<div class="ids"><span>Login</span>
+					<input type="text" name="login"/>
+				</div>
+				<div class="ids"><span>Password</span>
+					<input type="password" name="pass" />
+				</div>
+				<div class="ids"><span>Répetez votre mot de passe</span>
+					<input type="password" name="pass2" />
+				</div>
+
+				<div class="buttons">
+					<input type="submit" value="Enregistrement" />
+					<input type="button" value="Annuler" />
+				</div>	
+			</form>	
+		</div>
+		<div id="footer"><div id="sub_footer"><h2>Informations</h2>Ce site est en test</div></div>
+	</body>
+</html>
