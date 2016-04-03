@@ -8,6 +8,7 @@ import java.util.Set;
 import java.util.UUID;
 
 import org.bson.BSONObject;
+import org.bson.types.ObjectId;
 
 import com.mongodb.*;
 import com.mysql.jdbc.Statement;
@@ -27,6 +28,34 @@ public class UserTools {
 		st.execute(query);
 	}
 	
+	public static void like(int idUser, String idComment) throws SQLException{
+		Connection conn=DataBase.getMySqlConnection();
+		String query = "INSERT INTO tLike(idUser, idComment) VALUES("+idUser+", '"+idComment+"')";
+		Statement st=(Statement)conn.createStatement();
+		st.execute(query);
+		st.close();
+		conn.close();
+	}
+	public static void dislike(int idUser, String idComment) throws SQLException{
+		Connection conn=DataBase.getMySqlConnection();
+		String query = "DELETE FROM tLike WHERE idUser="+idUser+" AND idComment='"+idComment+"'";
+		Statement st=(Statement)conn.createStatement();
+		st.execute(query);
+		st.close();
+		conn.close();
+	}
+	
+	public static boolean commentLiked(int idUser, String idComment) throws SQLException{
+		Connection conn=DataBase.getMySqlConnection();
+		String query = "SELECT * FROM like WHERE idUser="+idUser+" AND idComment=+"+idComment+";";
+		Statement st=(Statement)conn.createStatement();
+		ResultSet rs=st.executeQuery(query);
+		boolean res=rs.next();
+		rs.close();
+		st.close();
+		conn.close();
+		return res;
+	}
 	/**
 	 *  idKey permet d'obtenir l'id de l'utilisateur associé à une clef de session
 	 * @param key la clef de session
@@ -54,6 +83,17 @@ public class UserTools {
 		}
 	}
 	
+	
+	
+	public static boolean commentExists(String idComment) throws UnknownHostException, MongoException{
+		Mongo m=new Mongo(DBStatic.mango_host, DBStatic.mango_port);
+		DB db=m.getDB("gr2_foufa_keraro");
+		DBCollection collection=db.getCollection("comments");
+		BasicDBObject query=new BasicDBObject();
+		query.put("_id", new ObjectId(idComment));
+		DBObject dbObj = collection.findOne(query);
+		return dbObj!=null;
+	}
 	/**
 	 * Donne le login d'un utilisateur à partir de son id
 	 * @param id
@@ -93,6 +133,18 @@ public class UserTools {
 		conn.close();
 		return res;
 		
+	}
+	public static boolean follows(int idFollower, int idFollowed)throws SQLException{
+		Connection conn=DataBase.getMySqlConnection();
+		String query="Select * FROM friends WHERE de="+idFollower+" AND vers="+idFollowed+";";
+		System.out.println(query);
+		Statement st=(Statement) conn.createStatement();
+		ResultSet rs=st.executeQuery(query);
+		boolean res=rs.next();
+		rs.close();
+		st.close();
+		conn.close();
+		return res;
 	}
 	//"{ \"auteur\" : { \"id\": 1 , \"login\" : \"Dieu\"}, \"text\" : \"Fiat lux\"}
 	public static void addComment(int author_id, String login,String text) throws UnknownHostException, MongoException {
@@ -145,6 +197,31 @@ public class UserTools {
 		}
 		res=res+"]";
 		return res;
+	}
+	public static String printCommentsFollow(int idFollower) throws UnknownHostException, MongoException, SQLException{
+		Mongo m= new Mongo(DBStatic.mango_host, DBStatic.mango_port);
+		DB db=m.getDB("gr2_foufa_keraro");
+		DBCollection collection= db.getCollection("comments");
+		DBCursor crs=collection.find();
+		if(crs.hasNext()){
+			String res="[";
+			DBObject comment=crs.next();
+			DBObject auteur=(DBObject) comment.get("auteur");
+			int idFollowed=(Integer) auteur.get("id");
+			comment.put("follows", follows(idFollower, idFollowed));
+			res=res+comment;
+			while(crs.hasNext()){
+				comment=crs.next();
+				auteur=(DBObject) comment.get("auteur");
+				idFollowed=(Integer) auteur.get("id");
+				comment.put("follows", follows(idFollower, idFollowed));
+				res=res+","+comment;
+			}
+			res=res+"]";
+			return res;
+			}else{
+				return "[]";
+			}
 	}
 	
 	public static String printComments(int author_id)  {
@@ -259,7 +336,7 @@ public class UserTools {
 			Connection conn=DataBase.getMySqlConnection();
 			String query="INSERT INTO sessions (cle, id, root, expired) VALUES ( UNHEX('"+clef.toString().replaceAll("-", "")+"'), "+id+", "+root+", false);";
 			Statement st=(Statement)conn.createStatement();
-				st.execute(query);
+			st.execute(query);
 			st.close();
 			conn.close();
 		
@@ -292,8 +369,6 @@ public class UserTools {
 		st.execute(update);
 		st.close();
 		conn.close();
-		
-
 	}
 	
 	
@@ -357,6 +432,5 @@ public class UserTools {
 		conn.close();
 		
 	}
-	
 	
 }
