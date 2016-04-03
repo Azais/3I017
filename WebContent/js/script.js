@@ -16,6 +16,15 @@ $(document).ready(function(){ // attendre que le document soit chargé
 		$(this).attr('src', src);
 	}	
 	});
+	
+	$(document).on({
+		'click', 'picture_friend' function() {
+		var src = ($(this).attr('src') === 'square_profile.png')
+		? 'square_profile_dead.png'
+		: 'square_profile.png';
+		$(this).attr('src', src);
+	}	
+	});
 
 	$('.picture_cancel').hover(function() {
 		var src = ($(this).attr('src') === 'square_stop-icon.png')
