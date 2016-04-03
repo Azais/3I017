@@ -47,6 +47,47 @@ public class UserServices {
 			return ServiceTools.serviceRefused("erreur", -3);
 		}
 	}
+	public static JSONObject dislike(String key, String idComment){
+		try{
+			if(UserTools.commentExists(idComment)){
+				int idUser;
+				try {
+					idUser=UserTools.idKey(key);
+				}catch (KeyNotFoundException e) {
+					return ServiceTools.serviceRefused("Clé de connection invalide", 3);
+				}
+				UserTools.dislike(idUser, idComment);
+				return ServiceTools.serviceAccepted();
+			}else{
+				return ServiceTools.serviceRefused("Commentaire n'existe pas", 4);
+			}
+		}catch(UnknownHostException | MongoException e){
+			return ServiceTools.serviceRefused("Erreur Mango", -2);
+		}catch(SQLException e){
+			return ServiceTools.serviceRefused("Erreur SQL", -1);
+		}
+	}
+	
+	public static JSONObject like(String key, String idComment){
+		try{
+			if(UserTools.commentExists(idComment)){
+				int idUser;
+				try {
+					idUser=UserTools.idKey(key);
+				}catch (KeyNotFoundException e) {
+					return ServiceTools.serviceRefused("Clé de connection invalide", 3);
+				}
+				UserTools.like(idUser, idComment);
+				return ServiceTools.serviceAccepted();
+			}else{
+				return ServiceTools.serviceRefused("Commentaire n'existe pas", 4);
+			}
+		}catch(UnknownHostException | MongoException e){
+			return ServiceTools.serviceRefused("Erreur Mango", -2);
+		}catch(SQLException e){
+			return ServiceTools.serviceRefused("Erreur SQL", -1);
+		}
+	}
 	
 	/** Crée un utilisateur de pseudo login. 
 	 * 	
@@ -307,6 +348,9 @@ public class UserServices {
 			return UserTools.printComments(i);
 	
 		
+	}
+	public static String printComments(int idFollower){
+		return null;
 	}
 	
 	/** Affiche tous les commentaires de la base MongoDB

@@ -1,12 +1,10 @@
 package service.test;
 
-import java.net.UnknownHostException;
 
 import service.UserServices;
 
 import com.mongodb.MongoException;
 
-import bd.UserTools;
 
 public class testAddComment {
 
