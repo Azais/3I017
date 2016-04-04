@@ -20,6 +20,11 @@ public class ListMessageFollower extends HttpServlet {
 			reponse.setContentType("application/json");
 			PrintWriter out = reponse.getWriter();
 			out.print(res);
+		}else{
+			String res=UserServices.printAllComments();
+			reponse.setContentType("application/json");
+			PrintWriter out = reponse.getWriter();
+			out.print(res);
 		}
 	}
 	

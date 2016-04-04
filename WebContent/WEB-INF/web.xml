@@ -54,7 +54,7 @@
 	</servlet-mapping>
 	<servlet>
 		<servlet-name>ListMessage</servlet-name> 
-		<servlet-class>service.servlets.ListMessage</servlet-class> 
+		<servlet-class>service.servlets.ListMessageFollower</servlet-class> 
 	</servlet> 
 	<servlet-mapping>
 		<servlet-name>ListMessage</servlet-name>
@@ -68,12 +68,5 @@
 		<servlet-name>RemoveComments</servlet-name>
 		<url-pattern>/RemoveComments</url-pattern>
 	</servlet-mapping>
-	<servlet>
-		<servlet-name>ListMessageFollower</servlet-name>
-		<servlet-class>service.servlets.ListMessageFollower</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>ListMessageFollower</servlet-name>
-		<url-pattern>/user/ListMessageFollower</url-pattern>
-	</servlet-mapping>
+	
 </web-app>

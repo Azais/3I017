@@ -14,12 +14,24 @@ User.prototype.modifystatus=function(){
 function isNumber(s){
 	return (! isNaN(s-0));
 }
-function Commentaire(id, auteur, texte, date, score){
+function Commentaire(id, auteur, texte, date, like, follow, score){
 	this.id=id;
 	this.auteur=auteur;
 	this.texte=texte;
 	this.date=date;
 	this.score=score;
+	if(like==undefined){
+		this.likes=false;
+	}else{
+		this.likes=like;
+	}
+	
+	if(follow==undefined){
+		this.follows=false;
+	}else{
+		this.follows=follow;
+	}
+	
 }
 
 
@@ -35,10 +47,10 @@ Commentaire.prototype.getHtml=function(){
 										
 									
 										s+="<div class='comment_friend'>";
-										if(this.contact){
+										if(this.follows){
 											s+="<img class='picture_friend' src='square_profile.png'></div>";
 										}else{
-											s+="<img class='picture_friend' src='square_profile.png'></div>";
+											s+="<img class='picture_friend' src='square_profile_dead.png'></div>";
 										}
 										
 										s+="<div class='author_comment'>"+this.auteur.login+"</div>";
@@ -98,7 +110,7 @@ RechercheCommentaire.revival=function revival(key, value){
 		}
 	}else{ 
 		if (isNumber(key)&& value.texte != '') {
-			var c = new Commentaire(value.id, value.auteur, value.text, value.postDate, value.score);
+			var c = new Commentaire(value.id, value.auteur, value.text, value.postDate, value.likes, value.follows);
 			return(c);
 		}else{
 	
@@ -155,6 +167,8 @@ function search(){
 	var friends=0;
 	var query='';
 	//var query= $("#requete").val();
+	
+	
 	$.ajax({ 
 		type: "GET",
 		url: "ListMessage",
