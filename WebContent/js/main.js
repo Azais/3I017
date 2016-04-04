@@ -34,9 +34,15 @@ Commentaire.prototype.getHtml=function(){
 										s+="<div class='comment_like'><img class='picture_like' src='square_heart.png'></div>";
 										
 									
-										s+="<div class='comment_friend'><img class='picture_friend' src='square_profile.png'></div>";
+										s+="<div class='comment_friend'>";
+										if(this.contact){
+											s+="<img class='picture_friend' src='square_profile.png'></div>";
+										}else{
+											s+="<img class='picture_friend' src='square_profile.png'></div>";
+										}
 										
 										s+="<div class='author_comment'>"+this.auteur.login+"</div>";
+										s+="<div class='date_comment'>"+this.date+"</div>";
 										s+="<div class='comment_cancel'><img class='picture_cancel' src='square_stop-icon_dead.png'></div>";
 										s+="</div>";
 										s += "</div>";
