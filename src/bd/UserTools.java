@@ -1,11 +1,14 @@
 package bd;
 
 import java.net.UnknownHostException;
+import java.util.Date;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Set;
 import java.util.UUID;
+
+import javax.naming.spi.DirObjectFactory;
 
 import org.bson.BSONObject;
 import org.bson.types.ObjectId;
@@ -30,7 +33,7 @@ public class UserTools {
 	
 	public static void like(int idUser, String idComment) throws SQLException{
 		Connection conn=DataBase.getMySqlConnection();
-		String query = "INSERT INTO tLike(idUser, idComment) VALUES("+idUser+", '"+idComment+"')";
+		String query = "INSERT INTO tLike(idUser, idComment) VALUES("+idUser+", UNHEX('"+idComment+"'))";
 		Statement st=(Statement)conn.createStatement();
 		st.execute(query);
 		st.close();
@@ -38,7 +41,7 @@ public class UserTools {
 	}
 	public static void dislike(int idUser, String idComment) throws SQLException{
 		Connection conn=DataBase.getMySqlConnection();
-		String query = "DELETE FROM tLike WHERE idUser="+idUser+" AND idComment='"+idComment+"'";
+		String query = "DELETE FROM tLike WHERE idUser="+idUser+" AND idComment=UNHEX('"+idComment+"')";
 		Statement st=(Statement)conn.createStatement();
 		st.execute(query);
 		st.close();
@@ -47,15 +50,18 @@ public class UserTools {
 	
 	public static boolean commentLiked(int idUser, String idComment) throws SQLException{
 		Connection conn=DataBase.getMySqlConnection();
-		String query = "SELECT * FROM like WHERE idUser="+idUser+" AND idComment=+"+idComment+";";
+		String query = "SELECT idComment FROM tLike WHERE idUser="+idUser+" AND UNHEX('"+idComment+"')=idComment";
+		System.out.println(query);
 		Statement st=(Statement)conn.createStatement();
 		ResultSet rs=st.executeQuery(query);
 		boolean res=rs.next();
+		System.out.println(res);
 		rs.close();
 		st.close();
 		conn.close();
 		return res;
 	}
+
 	/**
 	 *  idKey permet d'obtenir l'id de l'utilisateur associé à une clef de session
 	 * @param key la clef de session
@@ -160,6 +166,7 @@ public class UserTools {
 			
 			object.put("auteur", auteur);
 			object.put("text", text);
+			object.put("postDate", new Date());
 			collection.insert(object);
 			m.close();
 		
@@ -173,6 +180,7 @@ public class UserTools {
 		m.close();
 		
 	}
+	
 	public static String printAllComments(){
 		Mongo m;
 		try {
@@ -209,12 +217,18 @@ public class UserTools {
 			DBObject auteur=(DBObject) comment.get("auteur");
 			int idFollowed=(Integer) auteur.get("id");
 			comment.put("follows", follows(idFollower, idFollowed));
+			
+			String idComment=((ObjectId)(comment.get("_id"))).toString();
+			comment.put("likes",commentLiked(idFollower, idComment));
+			
 			res=res+comment;
 			while(crs.hasNext()){
 				comment=crs.next();
 				auteur=(DBObject) comment.get("auteur");
 				idFollowed=(Integer) auteur.get("id");
 				comment.put("follows", follows(idFollower, idFollowed));
+				idComment=((ObjectId)(comment.get("_id"))).toString();
+				comment.put("likes",commentLiked(idFollower, idComment));
 				res=res+","+comment;
 			}
 			res=res+"]";
@@ -261,7 +275,7 @@ public class UserTools {
 	
 	public static boolean userExists (String login) throws SQLException{
 			Connection conn=DataBase.getMySqlConnection();
-			System.out.println("connecté");
+			
 			String query="SELECT id FROM users WHERE login='"+login+"';";
 			Statement st= (Statement) conn.createStatement();
 			ResultSet res=st.executeQuery(query);
@@ -401,7 +415,7 @@ public class UserTools {
 		String query = "Select vers FROM friends WHERE de="+idA+";";
 		Statement st= (Statement) conn.createStatement();
 		ResultSet res=st.executeQuery(query);
-		System.out.println("Query recherche id execute");
+		
 		boolean retour=false;
 		while(res.next()){
 			if(res.getInt("vers")==idB){

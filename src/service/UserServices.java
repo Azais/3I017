@@ -349,8 +349,27 @@ public class UserServices {
 	
 		
 	}
-	public static String printComments(int idFollower){
-		return null;
+	public static String printComments(String key){
+		try{
+			int idFollower;
+			try{
+				idFollower=UserTools.idKey(key);
+				System.out.println("point1");
+				System.out.println("idFollower: "+idFollower);
+			}catch(KeyNotFoundException e){
+				return ServiceTools.serviceRefused("pas connecté", 3).toString();
+			}
+			if(UserTools.keyVerified(key)){
+				return UserTools.printCommentsFollow(idFollower);
+			}
+			else{
+				return ServiceTools.serviceRefused("pas connecté", 3).toString();
+			}
+		}catch(SQLException e){
+			return ServiceTools.serviceRefused("erreur SQL", -1).toString();
+		}catch(MongoException | UnknownHostException e){
+			return ServiceTools.serviceRefused("erreur SQL", -2).toString();
+		}
 	}
 	
 	/** Affiche tous les commentaires de la base MongoDB
