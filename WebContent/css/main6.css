@@ -262,7 +262,8 @@ input [value="Annuler"]{
 .date_comment{
 	display:inline-block;
 	margin-bottom:10%;
-	vertical-align: top
+	vertical-align: top;
+	margin-left:2%;
 
 }
 

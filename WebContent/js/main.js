@@ -79,7 +79,8 @@ RechercheCommentaire.traiteReponseJSON=function(json){
 	//alert("obj "+obj)
 	if(obj.erreur===undefined){
 		var r = new RechercheCommentaire(obj);
-		$('#main').prepend(r.getHtml())
+		$('#main').empty();
+		$('#main').prepend(r.getHtml());
 	}else{
 		alert("erreur: "+obj.erreur);	
 	}
@@ -97,7 +98,7 @@ RechercheCommentaire.revival=function revival(key, value){
 		}
 	}else{ 
 		if (isNumber(key)&& value.texte != '') {
-			var c = new Commentaire(value.id, value.auteur, value.text, value.date, value.score);
+			var c = new Commentaire(value.id, value.auteur, value.text, value.postDate, value.score);
 			return(c);
 		}else{
 	
@@ -111,8 +112,9 @@ RechercheCommentaire.revival=function revival(key, value){
 				}
 				return u;
 			}else{
-			 	if(key==='date'){
-					var d = new Date(value);
+			 	if(key==='postDate'){
+			 		//alert(value.$date);
+					var d = new Date(value.$date);
 					return d;
 				}else{
 					return (value);
@@ -152,7 +154,6 @@ function search(){
 	//var friends=($('#box_friends').get(0).checked)?1:0;
 	var friends=0;
 	var query='';
-	alert("search");
 	//var query= $("#requete").val();
 	$.ajax({ 
 		type: "GET",
@@ -229,7 +230,7 @@ function disconnect(){
 					env.actif=undefined;
 					env.key=undefined;
 					//gererDivConnexion();
-					search();
+					
 				}
 			});
 	}

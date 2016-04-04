@@ -291,6 +291,7 @@ input [value="Annuler"]{
 
 .date_comment{
 	display:inline-block;
+	margin-left :5%;
 
 }
 

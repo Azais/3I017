@@ -1,13 +1,13 @@
 $(document).ready(function(){ // attendre que le document soit chargé
-    $('.picture_like').on({
-		'click': function() {
+
+    
+    $('#main').on('click', '.picture_like', function(){
 		var src = ($(this).attr('src') === 'square_heart.png')
 		? 'square_heart_dead.png'
 		: 'square_heart.png';
 		$(this).attr('src', src);
-	}	
-	});
-
+    });
+/*
 	$('.picture_friend').on({
 		'click': function() {
 		var src = ($(this).attr('src') === 'square_profile.png')
@@ -15,18 +15,27 @@ $(document).ready(function(){ // attendre que le document soit chargé
 		: 'square_profile.png';
 		$(this).attr('src', src);
 	}	
-	});
+	});*/
 	
-	$(document).on({
-		'click', 'picture_friend' function() {
+	$('#main').on('click', '.picture_friend', function() {
 		var src = ($(this).attr('src') === 'square_profile.png')
 		? 'square_profile_dead.png'
 		: 'square_profile.png';
 		$(this).attr('src', src);
-	}	
+		
 	});
+	
 
+/*
 	$('.picture_cancel').hover(function() {
+		var src = ($(this).attr('src') === 'square_stop-icon.png')
+		? 'square_stop-icon_dead.png'
+		: 'square_stop-icon.png';
+		$(this).attr('src', src); 
+		
+	});*/
+	
+	$('#main').on('mouseover', '.picture_cancel', function() {
 		var src = ($(this).attr('src') === 'square_stop-icon.png')
 		? 'square_stop-icon_dead.png'
 		: 'square_stop-icon.png';
@@ -44,6 +53,11 @@ $(document).ready(function(){ // attendre que le document soit chargé
 */
 
 	$('.picture_cancel').click(function() {
+		$(this).closest(".comment_general").hide();
+		
+	});
+	
+	$('#main').on('click', '.picture_cancel', function() {
 		$(this).closest(".comment_general").hide();
 		
 	});
