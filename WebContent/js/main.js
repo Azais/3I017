@@ -99,9 +99,10 @@ RechercheCommentaire.traiteReponseJSON=function(json){
 }
 
 RechercheCommentaire.revival=function revival(key, value){
-	//alert(key);
-	//alert(value);
+	alert(key);
+	alert(value);
 	if(key.length===0){
+        alert("point 1");
 		if(value===undefined){
 			var r = RechercheCommentaire(value.resultats, value.recherche, value.contacts_only, value.date);
 			return(r);
@@ -168,11 +169,10 @@ function search(){
 	var query='';
 	//var query= $("#requete").val();
 	
-	
 	$.ajax({ 
 		type: "GET",
 		url: "ListMessage",
-		data: "key="+env.key+"&query="+query+"&friends="+friends,
+		data: (env.key===undefined? "": "key="+env.key)+"&query="+query+"&friends="+friends,
 		dataType: "json",
 		success: RechercheCommentaire.traiteReponseJSON,
 		error: function(jqXHR, textStatus, errorThrown){

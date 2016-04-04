@@ -354,7 +354,6 @@ public class UserServices {
 			int idFollower;
 			try{
 				idFollower=UserTools.idKey(key);
-				System.out.println("point1");
 				System.out.println("idFollower: "+idFollower);
 			}catch(KeyNotFoundException e){
 				return ServiceTools.serviceRefused("pas connecté", 3).toString();
