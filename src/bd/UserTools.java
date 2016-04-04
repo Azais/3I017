@@ -192,7 +192,7 @@ public class UserTools {
 		
 		BasicDBObject obj=new BasicDBObject();
 		DBCollection collection= db.getCollection("comments");
-		DBCursor crs=collection.find();
+		DBCursor crs=collection.find().sort(new BasicDBObject("postDate", -1));
 		String res="[";
 		if(crs.hasNext()){
 			res=res+crs.next();
@@ -210,7 +210,7 @@ public class UserTools {
 		Mongo m= new Mongo(DBStatic.mango_host, DBStatic.mango_port);
 		DB db=m.getDB("gr2_foufa_keraro");
 		DBCollection collection= db.getCollection("comments");
-		DBCursor crs=collection.find();
+		DBCursor crs=collection.find().sort(new BasicDBObject("postDate", -1));
 		if(crs.hasNext()){
 			String res="[";
 			DBObject comment=crs.next();
