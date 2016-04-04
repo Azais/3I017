@@ -70,7 +70,7 @@
 
 			
 				<div class="writer">
-				<form class ="erreur_box" action="" onSubmit="javascript:commenter(this)">
+				<form class ="erreur_box" action="javascript:(function(){return;})()" onSubmit="javascript:commenter(this)">
 			
 						<textarea name="comment" cols='20' rows='5'></textarea>
 				

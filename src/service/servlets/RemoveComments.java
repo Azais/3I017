@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import service.ServiceTools;
 
-import com.mongodb.MongoException;
 
 import bd.UserTools;
 

@@ -152,6 +152,7 @@ function search(){
 	//var friends=($('#box_friends').get(0).checked)?1:0;
 	var friends=0;
 	var query='';
+	alert("search");
 	//var query= $("#requete").val();
 	$.ajax({ 
 		type: "GET",
@@ -196,7 +197,8 @@ function func_new_comment(text){
 		success: traiteReponseNewComment,
 		error: function(jqXHR, textStatus, errorThrown){
 			alert(textStatus);
-			}
+			},
+		
 
 		
 		});
@@ -208,6 +210,7 @@ function traiteReponseNewComment(rep){
 		//disconnect();
 	}else{
 		alert("Alerte traiteReponse2"+rep);
+		search();
 	}
 }
 function disconnect(){

@@ -1,9 +1,7 @@
 package service.test;
 
-import java.sql.SQLException;
 
 import service.UserServices;
-import bd.UserTools;
 
 public class testLogin {
 
