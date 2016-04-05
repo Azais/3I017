@@ -68,5 +68,20 @@
 		<servlet-name>RemoveComments</servlet-name>
 		<url-pattern>/RemoveComments</url-pattern>
 	</servlet-mapping>
-	
+	<servlet>
+		<servlet-name>AddFriend</servlet-name>
+		<servlet-class>service.servlets.AddFriendServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AddFriend</servlet-name>
+		<url-pattern>/AddFriend</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>RemoveFriend</servlet-name>
+		<servlet-class>service.servlets.RemoveFriendServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RemoveFriend</servlet-name>
+		<url-pattern>/RemoveFriend</url-pattern>
+	</servlet-mapping>
 </web-app>

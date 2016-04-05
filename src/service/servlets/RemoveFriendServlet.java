@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import service.ServiceTools;
 import service.UserServices;
 
-public class RemoveFriend extends HttpServlet {
+public class RemoveFriendServlet extends HttpServlet {
 	public void doGet(HttpServletRequest requete, HttpServletResponse reponse) throws ServletException, IOException {
 		Map<String, String[]> pars=requete.getParameterMap();
 		String rep=ServiceTools.serviceRefused("Erreur paramètres", -1).toString();

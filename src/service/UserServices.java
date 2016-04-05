@@ -31,14 +31,18 @@ public class UserServices {
 		try{
 			if(key==null)
 				return ServiceTools.serviceRefused("Paramètres manquants", -1);
-			
+			System.out.println("point 1");
 			if(!UserTools.keyVerified(key))
 				return ServiceTools.serviceRefused("Non connecté!!!", 3);
+			System.out.println("point 2");
 			int idA=UserTools.idKey(key);
+			System.out.println("point 3, idA:"+idA);
 			
 			if(!UserTools.isFriend(idA, idB))
-				return ServiceTools.serviceRefused("vous n'êtes pas potes", 52);
-			UserServices.removeFriend(key, idB);
+				return ServiceTools.serviceAccepted();
+			System.out.println("point 4");
+			UserTools.removeFriend(idA, idB);
+			System.out.println("point 5");
 			return ServiceTools.serviceAccepted();
 		}catch(SQLException e){
 			return ServiceTools.serviceRefused("erreur SQL", -1);
@@ -312,7 +316,7 @@ public class UserServices {
 			if(UserTools.userExists(logA)){
 				if(UserTools.userExists(logB)){
 					if(UserTools.isFriend(idA, idB)){
-						return ServiceTools.serviceRefused("Déjà harcelé", -1);
+						return ServiceTools.serviceAccepted();
 					}else{
 						bd.UserTools.addFriend(idA, idB);
 						return ServiceTools.serviceAccepted();

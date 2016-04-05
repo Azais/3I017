@@ -26,9 +26,12 @@ public class UserTools {
 	 */
 	public static void removeFriend(int idA, int idB) throws SQLException{
 		Connection conn=DataBase.getMySqlConnection();
-		String query="DELETE FROM friends WHERE de = "+idA+"AND vers = "+idB+";";
+		String query="DELETE FROM friends WHERE de = "+idA+" AND vers = "+idB+";";
+		System.out.println(query);
 		Statement st=(Statement) conn.createStatement();
 		st.execute(query);
+		st.close();
+		conn.close();
 	}
 	
 	public static void like(int idUser, String idComment) throws SQLException{
@@ -110,9 +113,12 @@ public class UserTools {
 	public static String loginId(int id) throws SQLException, userNotFoundException{
 		Connection conn=DataBase.getMySqlConnection();
 		String query="SELECT login FROM users WHERE id="+id+";";
+		//System.out.println(query);
 		Statement st=(Statement) conn.createStatement();
 		ResultSet rs=st.executeQuery(query);
-		if(rs.next()){
+		boolean res=rs.next();
+		//System.out.println(res);
+		if(res){
 			String ret=rs.getString("login");
 			rs.close();
 			st.close();
@@ -190,18 +196,27 @@ public class UserTools {
 		}
 		DB db=m.getDB("gr2_foufa_keraro");
 		
-		BasicDBObject obj=new BasicDBObject();
+		
 		DBCollection collection= db.getCollection("comments");
 		DBCursor crs=collection.find().sort(new BasicDBObject("postDate", -1));
 		String res="[";
 		if(crs.hasNext()){
-			res=res+crs.next();
+			DBObject comment=crs.next();
+			String idComment=((ObjectId)(comment.get("_id"))).toString();
+			comment.put("id", idComment);
+			comment.removeField("_id");
+			
+			res=res+comment;
 		}
 		else{
 			return "[]";
 		}
 		while(crs.hasNext()){
-			res=res+","+crs.next();
+			DBObject comment=crs.next();
+			String idComment=((ObjectId)(comment.get("_id"))).toString();
+			comment.put("id", idComment);
+			comment.removeField("_id");
+			res=res+","+comment;
 		}
 		res=res+"]";
 		return res;
@@ -214,20 +229,28 @@ public class UserTools {
 		if(crs.hasNext()){
 			String res="[";
 			DBObject comment=crs.next();
+			String idComment=((ObjectId)(comment.get("_id"))).toString();
+			comment.put("id", idComment);
+			comment.removeField("_id");
 			DBObject auteur=(DBObject) comment.get("auteur");
 			int idFollowed=(Integer) auteur.get("id");
-			comment.put("follows", follows(idFollower, idFollowed));
-			
-			String idComment=((ObjectId)(comment.get("_id"))).toString();
+			boolean contact=follows(idFollower, idFollowed);
+			auteur.put("contact", contact);
+			comment.removeField("auteur");
+			comment.put("auteur", auteur);
 			comment.put("likes",commentLiked(idFollower, idComment));
-			
 			res=res+comment;
 			while(crs.hasNext()){
 				comment=crs.next();
+				idComment=((ObjectId)(comment.get("_id"))).toString();
+				comment.put("id", idComment);
+				comment.removeField("_id");
 				auteur=(DBObject) comment.get("auteur");
 				idFollowed=(Integer) auteur.get("id");
-				comment.put("follows", follows(idFollower, idFollowed));
-				idComment=((ObjectId)(comment.get("_id"))).toString();
+				contact=follows(idFollower, idFollowed);
+				auteur.put("contact", contact);
+				comment.removeField("auteur");
+				comment.put("auteur", auteur);
 				comment.put("likes",commentLiked(idFollower, idComment));
 				res=res+","+comment;
 			}

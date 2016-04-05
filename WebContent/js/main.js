@@ -14,7 +14,7 @@ User.prototype.modifystatus=function(){
 function isNumber(s){
 	return (! isNaN(s-0));
 }
-function Commentaire(id, auteur, texte, date, like, follow, score){
+function Commentaire(id, auteur, texte, date, like, score){
 	this.id=id;
 	this.auteur=auteur;
 	this.texte=texte;
@@ -26,17 +26,12 @@ function Commentaire(id, auteur, texte, date, like, follow, score){
 		this.likes=like;
 	}
 	
-	if(follow==undefined){
-		this.follows=false;
-	}else{
-		this.follows=follow;
-	}
-	
 }
 
 
 Commentaire.prototype.getHtml=function(){
-										//alert(JSON.stringify(this));	
+										//alert(JSON.stringify(this));
+                                        //alert("id: "+this.id+" auteur:"+this.auteur.id);
 										var s="<div class='comment_general'>"
 									
 										s+="<div class='comment'> ";
@@ -45,8 +40,8 @@ Commentaire.prototype.getHtml=function(){
 										s+="<div class='comment_meta'>";
 										s+="<div class='comment_like'><img class='picture_like' src='square_heart.png'></div>";
 										
-									
-										s+="<div class='comment_friend'>";
+                                
+										s+="<div class='comment_friend'  >";
 										if(this.follows){
 											s+="<img class='picture_friend' src='square_profile.png'></div>";
 										}else{
@@ -72,6 +67,7 @@ function RechercheCommentaire(resultats, recherche, contact_only, date){
 
 function RechercheCommentaire(resultats){
 	this.resultats=resultats;
+	console.log("resultats: "+resultats);
 	env.recherche=this;
 	this.getHtml = function(){
 		var s = "";
@@ -81,7 +77,7 @@ function RechercheCommentaire(resultats){
 		}
 		
 		return s;
-	}
+    }
 }
 
 //RechercheCommentaire.prototype.getHtml=
@@ -93,16 +89,17 @@ RechercheCommentaire.traiteReponseJSON=function(json){
 		var r = new RechercheCommentaire(obj);
 		$('#main').empty();
 		$('#main').prepend(r.getHtml());
+        updateWindowOnClick();
 	}else{
 		alert("erreur: "+obj.erreur);	
 	}
 }
 
 RechercheCommentaire.revival=function revival(key, value){
-	alert(key);
-	alert(value);
+	//alert(key);
+	//alert(value);
 	if(key.length===0){
-        alert("point 1");
+        //alert("point 1");
 		if(value===undefined){
 			var r = RechercheCommentaire(value.resultats, value.recherche, value.contacts_only, value.date);
 			return(r);
@@ -110,8 +107,10 @@ RechercheCommentaire.revival=function revival(key, value){
 			return(value);
 		}
 	}else{ 
-		if (isNumber(key)&& value.texte != '') {
+		if (isNumber(key)&& value.text != '') {
+			console.log('key: '+key+' value: '+value.text);
 			var c = new Commentaire(value.id, value.auteur, value.text, value.postDate, value.likes, value.follows);
+			
 			return(c);
 		}else{
 	
@@ -180,30 +179,44 @@ function search(){
 			}
 		});
 }
-function ajoutsup_contact(id){
-	var user=env.users[id];
+
+function ajoutsup_contact(index){
+    
 	var url;
-	if(user.contact){
-		url="/RemoveFriend";
+    var idUser=env.users[env.recherche.resultats[index].auteur.id].id;
+    console.log("idUser: "+idUser);
+	if(env.users[idUser].contact){
+		url="RemoveFriend";
 	}else{
-		url="/AddFriend";
+		url="AddFriend";
 		}
+    console.log("url :"+url+" id: "+idUser);
 	$.ajax({
 		type: "GET",
 		url: url,
-		data: "key:"+env.key+"&id_friend:"+id,
+		data: "key="+env.key+"&id_friend="+idUser,
 		dataType: "json",
-		success: function(res){
-			TraiteReponseAjoutSupContact(rep, id);
+		success: function(rep){
+            if(rep.erreur===undefined){
+                console.log("point 7");
+                env.users[idUser].contact=((url==="addFriend")?true:false);
+                console.log("point 8: "+env.users[idUser].contact);
+                updateWindowOnClick();
+            }else{
+                alert(rep.message);
+            }
+            
 		},
 		error: function(jqXHR, textStatus, errorThrown){
 			alert(textStatus);
 			}
 		});
+    
 }
 function func_new_comment(text){
-	alert("text :"+text);
-	alert("env.key :"+env.key);
+	//alert("text :"+text);
+	//alert("env.key :"+env.key);
+    
 	$.ajax({
 		type:"GET",
 		url:"user/AddComment",
@@ -232,7 +245,7 @@ function disconnect(){
 	$.ajax({
 		type: "GET",
 		url: "/logout",
-		data: "key"+env.Key,
+		data: "key="+env.Key,
 		dataType: "json",
 		success: function(rep){
 					return;

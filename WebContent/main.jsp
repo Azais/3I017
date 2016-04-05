@@ -31,6 +31,7 @@
 
 				%>
 			};
+            
 			$(go);
 		</script>
 		<div id="header">
