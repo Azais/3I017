@@ -72,7 +72,20 @@
 		</div>
 		<div id="main">
 				
-Modifiez votre profil !
+<form class ="erreur_box" action="javascript:(function(){return;})()" onSubmit="javascript:setProfile(this)">
+				
+				<div class="ids"><span>Ancien mot de passe</span>
+					<input type="password" name="pass" />
+				</div>
+
+				<div class="ids"><span>Nouveau mot de passe</span>
+					<input type="password" name="newpass" />
+				</div>
+				<div class="buttons">
+					<input type="submit" value="Changer" />
+					<input type="reset" value="Annuler" />
+				</div>	
+			</form>	
 
 			
 			</div>

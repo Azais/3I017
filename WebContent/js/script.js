@@ -94,6 +94,21 @@ $(document).ready(function(){ // attendre que le document soit chargé
 		$(this).closest('#disconnect').siblings().find('#connect').show();
 	});
 	
+	$('#profil').click(function(){
+		
+		$.ajax({
+			type: "GET",
+			url: "monprofil.jsp",
+			data:"key="+env.key+"&login="+env.actif.login+"&id="+env.actif.id,
+			dataType: "json",
+			success: function(rep){traiteReponseConnexion(rep, login)},
+			error: function (jqXMTR, textStatus, errorThrown){
+					alert(textStatus);			
+				}
+	}
+			
+	);
+	
 
 });
 
