@@ -24,7 +24,7 @@ public class TestDate {
 				/*or(int i=1;i<=12;i++){
 					System.out.println(i+" "+UserTools.printCommentsFollow(i));
 				}*/
-				System.out.println(UserTools.printCommentsFollow(3));
+				UserTools.changePicture(3, "3.jpg");
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

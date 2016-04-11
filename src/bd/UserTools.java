@@ -529,4 +529,13 @@ public class UserTools {
 		st.close();
 		conn.close();
 	}
+
+	public static void changePicture(int id, String picture) throws SQLException {
+		String query="UPDATE users SET picture= '"+picture+"' WHERE id="+id+";";
+		Connection conn = DataBase.getMySqlConnection();
+		Statement st=(Statement) conn.createStatement();
+		st.execute(query);
+		st.close();
+		conn.close();
+	}
 }

@@ -420,4 +420,17 @@ public class UserServices {
 		}
 		return res;
 	}
+	public static JSONObject setPicture(String key, String picture){
+		JSONObject res=null;
+		try{
+			int id=UserTools.idKey(key);
+			UserTools.changePicture(id, picture);
+			res=ServiceTools.serviceAccepted();
+		}catch (SQLException e) {
+			res=ServiceTools.serviceRefused("erreur SQL", -1);
+		} catch (KeyNotFoundException e) {
+			res=ServiceTools.serviceRefused("clé de connection invalide",4);
+		}
+		return res;
+	}
 }

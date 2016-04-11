@@ -92,4 +92,12 @@
 		<servlet-name>SetPassword</servlet-name>
 		<url-pattern>/SetPassword</url-pattern>
 	</servlet-mapping>	
+	<servlet>
+		<servlet-name>SetPicture</servlet-name>
+		<servlet-class>service.servlets.SetPicture</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SetPicture</servlet-name>
+		<url-pattern>/SetPicture</url-pattern>
+	</servlet-mapping>
 </web-app>
