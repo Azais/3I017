@@ -3,7 +3,8 @@ function setProfile(form){
 	var password = form.pass.value;
 	var newpassword = form.newpass.value;
 
-	if(password.length > 0){
+	if(newpassword.length > 0){
+			alert("nouveau mot de passe"+newpassword);
 			setPassword(password, newpassword);
 		}
 	
@@ -16,7 +17,7 @@ function setPassword(password, newpass){
 		url: "SetPassword",
 		data:"key="+env.key+"&oldPass="+password+"&newPass="+newpass,
 		dataType: "json",
-		success: function(rep){traiteReponseProfile(rep, login)},
+		success: function(rep){alert("ok")},
 		error: function (jqXMTR, textStatus, errorThrown){
 				alert(textStatus);			
 			}

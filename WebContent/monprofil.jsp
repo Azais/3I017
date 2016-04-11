@@ -12,10 +12,10 @@
 		<link href="css/style.css" rel="stylesheet" type="text/css" />
 
 	</head>
-	<body onload="javascript:main()">
+	<body>
 		<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 		<script type="text/javascript">
-			function go(){
+				function go(){
 				<%   
 					String id=request.getParameter("id");
 					String login=request.getParameter("login");
@@ -26,9 +26,9 @@
 						out.println("main ('"+id+"','"+login+"','"+key+"');");
 						
 					}else{
-						out.println("Erreur, Veuillez vous connecter");
+						out.println("main();");
 					}
-					
+				
 
 				%>
 			};

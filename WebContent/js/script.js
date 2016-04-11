@@ -105,13 +105,13 @@ $(document).ready(function(){ // attendre que le document soit chargé
 			error: function (jqXMTR, textStatus, errorThrown){
 					alert(textStatus);			
 				}
-	}
-			
-	);
+		});
+		
 	
 
-});
+	});
 
+})
 
 function updateWindowOnClick(){
 	console.log("entré");
