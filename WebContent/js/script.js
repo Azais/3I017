@@ -36,7 +36,7 @@ $(document).ready(function(){ // attendre que le document soit chargé
 	});*/
 	
 	$('#main').on('mouseover', '.picture_cancel', function() {
-		var src = 'square_stop-icon_dead.png')
+		var src = 'square_stop-icon_dead.png';
 		
 		$(this).attr('src', src);
 		

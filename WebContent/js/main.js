@@ -126,6 +126,7 @@ RechercheCommentaire.revival=function revival(key, value){
 				if(env.users[value.id] !== undefined){
 					u = env.users[value.id];		
 				}else {
+					console.log("Ajout de :"+value.login+value.picture);
 					u = new User(value.id, value.login, value.contact, value.picture);
 				}
 				return u;
