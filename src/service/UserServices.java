@@ -398,4 +398,26 @@ public class UserServices {
 		}
 		return null;
 	}
+	
+	public static JSONObject setPassword(String key, String oldPass, String newPass){
+		JSONObject res=null;
+		try {
+			int id=UserTools.idKey(key);
+			String login=UserTools.loginId(id);
+			if(UserTools.checkPassword(login, oldPass)){
+				UserTools.changePassword(id, newPass);
+				res=ServiceTools.serviceAccepted();
+			}else{
+				res=ServiceTools.serviceRefused("mot de passe incorrecte", 4);
+			}
+		} catch (SQLException e) {
+			res=ServiceTools.serviceRefused("erreur SQL", -1);
+		} catch (KeyNotFoundException e) {
+			
+			res=ServiceTools.serviceRefused("clé non trouvée", -3);
+		} catch (userNotFoundException e) {
+			//ne doit pas arriver
+		}
+		return res;
+	}
 }

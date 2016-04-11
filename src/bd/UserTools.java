@@ -521,4 +521,12 @@ public class UserTools {
 		conn.close();
 		return res;
 	}
+	public static void changePassword(int id, String newPass) throws SQLException{
+		String query="UPDATE users SET password= '"+newPass+"' WHERE id="+id+";";
+		Connection conn = DataBase.getMySqlConnection();
+		Statement st=(Statement) conn.createStatement();
+		st.execute(query);
+		st.close();
+		conn.close();
+	}
 }

@@ -84,4 +84,12 @@
 		<servlet-name>RemoveFriend</servlet-name>
 		<url-pattern>/RemoveFriend</url-pattern>
 	</servlet-mapping>
+	<servlet>SetPassword
+		<servlet-name>SetPassword</servlet-name>
+		<servlet-class>service.servlets.SetPassword</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SetPassword</servlet-name>
+		<url-pattern>/SetPassword</url-pattern>
+	</servlet-mapping>	
 </web-app>
