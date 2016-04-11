@@ -284,7 +284,7 @@ public class UserTools {
 				contact=follows(idFollower, idFollowed);
 				auteur.put("contact", contact);
 				photo=photoId(idFollower);
-				auteur.put("photo", photo);
+				auteur.put("picture", photo);
 				comment.removeField("auteur");
 				comment.put("auteur", auteur);
 				comment.put("likes",commentLiked(idFollower, idComment));
