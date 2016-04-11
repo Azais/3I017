@@ -19,6 +19,7 @@ public class RechercheMapReduce {
 			System.out.println(obj.toString());
 		}
 	}
+<<<<<<< HEAD
 
 	public static void main(String args[]){
 		try{
@@ -28,4 +29,6 @@ public class RechercheMapReduce {
 		}
 	}
 	
+=======
+>>>>>>> 83ee50278f82fcf19326895c336ebe0fad3e4160
 }
