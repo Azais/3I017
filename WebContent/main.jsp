@@ -47,7 +47,7 @@
 			<div id="connect"><a href="connexion.html"><div class="cadre">Se connecter</div></a> <a href="enregistrement.html"><div class="cadre">Enregistrement</div></a>
 
 			</div>
-			<div id="disconnect"><a href="monprofil.html"><div class="cadre">Mon profil</div></a> <a href="enregistrement.html"><div class="cadre" id="deco">Se déconnecter</div></a></div>
+			<div id="disconnect"><div class="cadre" id="profil">Mon profil</div> <a href="enregistrement.html"><div class="cadre" id="deco">Se déconnecter</div></a></div>
 			</div>
 		
 

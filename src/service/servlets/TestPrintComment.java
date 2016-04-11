@@ -14,7 +14,7 @@ import com.mongodb.MongoException;
 import bd.UserTools;
 
 import service.ServiceTools;
-import service.UserServices;
+import service.UserServices;;
 
 public class TestPrintComment extends HttpServlet {
 	public void doGet(HttpServletRequest requete, HttpServletResponse reponse) throws ServletException, IOException {
