@@ -1,9 +1,14 @@
-function User(id, login, contact){
+function User(id, login, contact, photo){
 	this.id=id;
 	this.login=login;
 	this.contact=false;
 	if(contact!=undefined){
 		this.contact=contact;
+	}
+	if(photo!=undefined){
+		this.photo=photo;
+	}else{
+		this.photo="undefined.jpg";
 	}
 	env.users[this.id]=this;
 }
@@ -35,6 +40,7 @@ Commentaire.prototype.getHtml=function(){
 										var s="<div class='comment_general'>"
 									
 										s+="<div class='comment'> ";
+										s+="<div class='comment_picture'><img class='comment_img' src='img/"+this.auteur.photo+"'></div>";
 										s+="<div class='text_comment'>"+this.texte+"</div>";
 										s+="</div>";
 										s+="<div class='comment_meta'>";
@@ -120,7 +126,7 @@ RechercheCommentaire.revival=function revival(key, value){
 				if(env.users[value.id] !== undefined){
 					u = env.users[value.id];		
 				}else {
-					u = new User(value.id, value.login, value.contact);
+					u = new User(value.id, value.login, value.contact, value.picture);
 				}
 				return u;
 			}else{
