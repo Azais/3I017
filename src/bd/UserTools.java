@@ -5,6 +5,7 @@ import java.util.Date;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Set;
 import java.util.UUID;
 
@@ -399,9 +400,9 @@ public class UserTools {
 		return retour;
 	}		
 	
-	public static void register(String login, String nom, String prenom, String password) throws SQLException{
+	public static void register(String login, String nom, String prenom, String password, String photo) throws SQLException{
 		Connection conn=DataBase.getMySqlConnection();
-		String update ="INSERT INTO users (login, nom, prenom, password) VALUES ('"+login+"', '"+nom+"', '"+prenom+"', '"+password+"')";
+		String update ="INSERT INTO users (login, nom, prenom, password) VALUES ('"+login+"', '"+nom+"', '"+prenom+"', '"+password+"', '"+photo+"');";
 		Statement st =(Statement)conn.createStatement();
 		st.execute(update);
 		st.close();
@@ -469,5 +470,18 @@ public class UserTools {
 		conn.close();
 		
 	}
-	
+	public static ArrayList<Integer> friends(int id) throws SQLException{
+		ArrayList<Integer>res = new ArrayList<Integer>();
+		Connection conn = DataBase.getMySqlConnection();
+		String query= "SELECT vers FROM friends WHERE de="+id+";";
+		Statement st=(Statement) conn.createStatement();
+		ResultSet set=st.executeQuery(query);
+		while(set.next()){
+			res.add(new Integer(set.getInt("vers")));
+		}
+		set.close();
+		st.close();
+		conn.close();
+		return res;
+	}
 }

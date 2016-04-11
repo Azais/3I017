@@ -8,6 +8,7 @@ package service;
 
 import java.net.UnknownHostException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -102,9 +103,9 @@ public class UserServices {
 	 * @return un JSONObject indiquant que le service a réussi ou l'erreur
 	 */
 	
-	public static JSONObject createUser(String login, String password, String nom, String prenom){
+	public static JSONObject createUser(String login, String password, String nom, String prenom, String photo){
 		
-		if((login==null)||(password==null)||(nom==null)||(prenom==null)){
+		if((login==null)||(password==null)||(nom==null)||(prenom==null)||(photo==null)){
 			return ServiceTools.serviceRefused("Paramètres manquants", -1);
 		}
 		
@@ -116,7 +117,7 @@ public class UserServices {
 			}else{
 			// Ajouter l'utilisateur à la BD
 				try {
-					UserTools.register(login, nom, prenom, password);
+					UserTools.register(login, nom, prenom, password, photo);
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -382,4 +383,18 @@ public class UserServices {
 	public static String printAllComments(){
 		return UserTools.printAllComments();
 			}
+	public static JSONObject friends(String key, int id){
+		try {
+			if(UserTools.keyVerified(key)){
+				ArrayList<Integer> set=UserTools.friends(id);
+				JSONObject res=new JSONObject();
+				for(int i: set){
+				
+				}
+			}
+		} catch (SQLException e) {
+			return ServiceTools.serviceRefused("erreur sql", -1);
+		}
+		return null;
+	}
 }

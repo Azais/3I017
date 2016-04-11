@@ -132,6 +132,29 @@ function updateWindowFollow(){
         $('.picture_friend', elem).attr('src', src);
     })
 }
+function updateLikeOnClick(){
+	console.log("entré");
+    $('.comment_meta').each(function(index, elem){
+        console.log(elem);
+        var idUser=env.recherche.resultats[index].auteur.id;
+        var src = ((env.users[idUser].contact) ? 'square_profile.png': 'square_profile_dead.png');
+        console.log("point 1 src: "+src);
+        $('.picture_friend', elem).attr('src', src);
+        $(elem).on('click','.picture_friend',function(){
+        	console.log("point 2");
+            //var src = (($(this).attr('src'))=== 'square_profile_dead.png')? 'square_profile.png': 'square_profile_dead.png';
+            console.log("point 3");
+            //$(this).attr('src', src);
+            //console.log("point 4 src: "+src);
+            if(env.key!==undefined){
+                console.log("point 5");
+                ajoutsup_contact(index);
+                console.log("point 6");
+                
+            }
+        })
+    })
+}
                         
 
                                          
