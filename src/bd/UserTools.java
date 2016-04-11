@@ -28,7 +28,7 @@ public class UserTools {
 	public static void removeFriend(int idA, int idB) throws SQLException{
 		Connection conn=DataBase.getMySqlConnection();
 		String query="DELETE FROM friends WHERE de = "+idA+" AND vers = "+idB+";";
-		System.out.println(query);
+		//System.out.println(query);
 		Statement st=(Statement) conn.createStatement();
 		st.execute(query);
 		st.close();
@@ -55,11 +55,11 @@ public class UserTools {
 	public static boolean commentLiked(int idUser, String idComment) throws SQLException{
 		Connection conn=DataBase.getMySqlConnection();
 		String query = "SELECT idComment FROM tLike WHERE idUser="+idUser+" AND UNHEX('"+idComment+"')=idComment";
-		System.out.println(query);
+		//System.out.println(query);
 		Statement st=(Statement)conn.createStatement();
 		ResultSet rs=st.executeQuery(query);
 		boolean res=rs.next();
-		System.out.println(res);
+		//System.out.println(res);
 		rs.close();
 		st.close();
 		conn.close();
@@ -150,7 +150,7 @@ public class UserTools {
 	public static boolean follows(int idFollower, int idFollowed)throws SQLException{
 		Connection conn=DataBase.getMySqlConnection();
 		String query="Select * FROM friends WHERE de="+idFollower+" AND vers="+idFollowed+";";
-		System.out.println(query);
+		//System.out.println(query);
 		Statement st=(Statement) conn.createStatement();
 		ResultSet rs=st.executeQuery(query);
 		boolean res=rs.next();
@@ -266,8 +266,10 @@ public class UserTools {
 			DBObject auteur=(DBObject) comment.get("auteur");
 			int idFollowed=(Integer) auteur.get("id");
 			boolean contact=follows(idFollower, idFollowed);
+			//System.out.println(idFollowed);
 			auteur.put("contact", contact);
-			String photo=photoId(idFollower);
+			String photo=photoId(idFollowed);
+			//System.out.println(photo);
 			auteur.put("picture", photo);
 			comment.removeField("auteur");
 			
@@ -283,7 +285,7 @@ public class UserTools {
 				idFollowed=(Integer) auteur.get("id");
 				contact=follows(idFollower, idFollowed);
 				auteur.put("contact", contact);
-				photo=photoId(idFollower);
+				photo=photoId(idFollowed);
 				auteur.put("picture", photo);
 				comment.removeField("auteur");
 				comment.put("auteur", auteur);

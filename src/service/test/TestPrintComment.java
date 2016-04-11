@@ -4,7 +4,7 @@ import bd.UserTools;
 
 public class TestPrintComment {
 	public static void main(String []args){
-		System.out.println(UserTools.printComments(1));
+		
 		System.out.println(UserTools.printAllComments());
 	}
 

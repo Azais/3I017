@@ -4,6 +4,7 @@ import java.net.UnknownHostException;
 import java.util.Date;
 
 import bd.DBStatic;
+import bd.UserTools;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
@@ -20,21 +21,11 @@ public class TestDate {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 			try {
-				Mongo m=new Mongo(DBStatic.mango_host, DBStatic.mango_port);
-				DB db=m.getDB("gr2_foufa_keraro");
-				//db.createCollection("test", null);
-				DBCollection collection=db.getCollection("test");
-				BasicDBObject query=new BasicDBObject();
-				Date now=new Date();
-				query.put("moi", 2);
-				query.put("postDate", now);
-				System.out.println(query);
-				//collection.insert(query);
-				//DBCursor crs=collection.find();
-				//while(crs.hasNext())
-					//System.out.println(crs.next());
-				
-			} catch (UnknownHostException | MongoException e) {
+				/*or(int i=1;i<=12;i++){
+					System.out.println(i+" "+UserTools.printCommentsFollow(i));
+				}*/
+				System.out.println(UserTools.printCommentsFollow(3));
+			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}

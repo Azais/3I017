@@ -100,13 +100,13 @@ public class UserServices {
 	 * @param password le mot de passe (string)
 	 * @param nom le nom de famille (string)
 	 * @param prenom le prénom de l'utilisateur (string)
-	 * @return un JSONObject indiquant que le service a réussi ou l'erreur
+	 * @return un JSONObject indiquant que le service a réussi ou l'erreur.
 	 */
 	
 	public static JSONObject createUser(String login, String password, String nom, String prenom, String photo){
 		
 		if((login==null)||(password==null)||(nom==null)||(prenom==null)||(photo==null)){
-			return ServiceTools.serviceRefused("Paramètres manquants", -1);
+			return ServiceTools.serviceRefused("Paramètres manquants", -3);
 		}
 		
 		// Verifier que le login utilisateur n'est pas déjà dans la bd
@@ -157,7 +157,7 @@ public class UserServices {
 	
 	public static JSONObject login(String login, String password) {
 		if((login==null)||(password==null)){
-			return ServiceTools.serviceRefused("Paramètres manquants", -1);
+			return ServiceTools.serviceRefused("Paramètres manquants", -3);
 		}
 		// Verifier que l'utilisateur (login) existe
 		try {
@@ -182,7 +182,6 @@ public class UserServices {
 						}catch(userNotFoundException e){
 							//ne doit pas arriver
 						}
-			
 						JSONObject res=new JSONObject();
 						res.put("key", clef);
 						res.put("id", id);
@@ -207,6 +206,8 @@ public class UserServices {
 						try {
 							res.put("key", clef);
 							res.put("id", id);
+							res.put("picture", UserTools.photoId(id));
+							res.put("follow", true);
 						} catch (JSONException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
@@ -241,13 +242,13 @@ public class UserServices {
 	public static JSONObject logout(String key){
 		
 		if (key==null)
-			return ServiceTools.serviceRefused("parametre manquant", -1);
+			return ServiceTools.serviceRefused("parametre manquant", -3);
 		try {
 			if(UserTools.keyVerified(key)){
 				bd.UserTools.logout(key);
 				return ServiceTools.serviceAccepted();
 			}else{
-				return ServiceTools.serviceRefused("clé n'existe pas", -1);
+				return ServiceTools.serviceRefused("clé n'existe pas", 3);
 			}
 		} catch (SQLException e) {
 			return ServiceTools.serviceRefused("Erreur SQL", -1);
@@ -268,12 +269,12 @@ public class UserServices {
 	public static JSONObject addComment(String key, String text){
 		//vérifie les paramètrees 
 		if (key==null || text==null)
-			return ServiceTools.serviceRefused("parametre manquant", -1);
+			return ServiceTools.serviceRefused("parametre manquant", -3);
 		
 		//teste si on est connecté
 		try{
 			if(!UserTools.keyVerified(key))
-				return ServiceTools.serviceRefused("Non connecté!!!", 3);
+				return ServiceTools.serviceRefused("Non connecté!!!", 4);
 		
 			int id = UserTools.idKey(key);
 			String login = UserTools.loginId(id);
@@ -303,16 +304,16 @@ public class UserServices {
 		
 		try{
 			if(!UserTools.keyVerified(key))
-				return ServiceTools.serviceRefused("Non connecté!!!", 3);
+				return ServiceTools.serviceRefused("Non connecté!!!", 4);
 			int idA=UserTools.idKey(key);
 			String logA=UserTools.loginId(idA);
 			String logB=UserTools.loginId(idB);
 		
 			if(logA==null||logB==null)
-				return ServiceTools.serviceRefused("Paramètres manquants", -1);
+				return ServiceTools.serviceRefused("Paramètres manquants", -3);
 			
 			if(logA.equals(logB))
-				return ServiceTools.serviceRefused("Amis similaires", -1);
+				return ServiceTools.serviceRefused("Amis similaires", 5);
 		
 			if(UserTools.userExists(logA)){
 				if(UserTools.userExists(logB)){
@@ -324,12 +325,12 @@ public class UserServices {
 					}
 				}else{
 					System.out.println("Ami imaginaire");
-					return ServiceTools.serviceRefused("Ami imaginaire", -1);
+					return ServiceTools.serviceRefused("Ami imaginaire",6);
 					
 				}
 			}else{
 				System.out.println("Vous n'existez pas");
-				return ServiceTools.serviceRefused("Vous n'existez pas", -1);
+				return ServiceTools.serviceRefused("Vous n'existez pas", 7);
 			}
 		
 		}catch (SQLException e){
