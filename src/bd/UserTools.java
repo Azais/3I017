@@ -188,7 +188,7 @@ public class UserTools {
 		
 	}
 	
-	public static String printAllComments(){
+	public static String printAllComments() {
 		Mongo m;
 		try {
 			m = new Mongo(DBStatic.mango_host, DBStatic.mango_port);
@@ -203,6 +203,13 @@ public class UserTools {
 		String res="[";
 		if(crs.hasNext()){
 			DBObject comment=crs.next();
+			DBObject auteur=(DBObject) comment.get("auteur");
+			int id=Integer.parseInt( auteur.get("id").toString());
+			try{
+				auteur.put("picture", photoId(id));
+			}catch(Exception e){
+				return "{erreur: -1, message: erreur sql}";
+			}
 			String idComment=((ObjectId)(comment.get("_id"))).toString();
 			comment.put("id", idComment);
 			comment.removeField("_id");
@@ -214,6 +221,13 @@ public class UserTools {
 		}
 		while(crs.hasNext()){
 			DBObject comment=crs.next();
+			DBObject auteur=(DBObject) comment.get("auteur");
+			int id=Integer.parseInt( auteur.get("id").toString());
+			try{
+				auteur.put("picture", photoId(id));
+			}catch(Exception e){
+				return "{erreur: -1, message: erreur sql}";
+			}
 			String idComment=((ObjectId)(comment.get("_id"))).toString();
 			comment.put("id", idComment);
 			comment.removeField("_id");
@@ -222,6 +236,22 @@ public class UserTools {
 		res=res+"]";
 		return res;
 	}
+	public static String photoId(int id) throws SQLException{
+		Connection conn = DataBase.getMySqlConnection();
+		String query= "SELECT picture FROM users WHERE id="+id+";";
+		Statement st=(Statement) conn.createStatement();
+		ResultSet set=st.executeQuery(query);
+		String res=null;
+		if (set.next()){
+			res=set.getString("picture");
+		}
+		set.close();
+		st.close();
+		conn.close();
+		return res;
+	}
+		
+	
 	public static String printCommentsFollow(int idFollower) throws UnknownHostException, MongoException, SQLException{
 		Mongo m= new Mongo(DBStatic.mango_host, DBStatic.mango_port);
 		DB db=m.getDB("gr2_foufa_keraro");
@@ -237,7 +267,10 @@ public class UserTools {
 			int idFollowed=(Integer) auteur.get("id");
 			boolean contact=follows(idFollower, idFollowed);
 			auteur.put("contact", contact);
+			String photo=photoId(idFollower);
+			auteur.put("photo", photo);
 			comment.removeField("auteur");
+			
 			comment.put("auteur", auteur);
 			comment.put("likes",commentLiked(idFollower, idComment));
 			res=res+comment;
@@ -250,6 +283,8 @@ public class UserTools {
 				idFollowed=(Integer) auteur.get("id");
 				contact=follows(idFollower, idFollowed);
 				auteur.put("contact", contact);
+				photo=photoId(idFollower);
+				auteur.put("photo", photo);
 				comment.removeField("auteur");
 				comment.put("auteur", auteur);
 				comment.put("likes",commentLiked(idFollower, idComment));

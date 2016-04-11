@@ -4,8 +4,8 @@ import java.net.UnknownHostException;
 import com.mongodb.*;
 public class RechercheMapReduce {
 	public static void indexation() throws UnknownHostException, MongoException{
-		String mapDF="function map(){var text=this.comment;var words=text.match(/\\w+/g);var df=[];for (w in words){if(df(words[w])==null){df(words[w])=1;	};}for(w in df){emit(w,{df:1})}}";
-		String reduceDF="function reduce(key, values){	var total=0;	for(i in values){		total+=values[i].df;	}	return({word.key, df:total});}";
+		String mapDF="function map(){var text=this.comment;var words=text.match(/\\w+/g);var df=[];for (w in words){if(df(words[w])==null){df(words[w])=1;	};}for(w in df){emit(w,{df:1});}}";
+		String reduceDF="function reduce(key, values){	var total=0;	for(i in values){		total+=values[i].df;	};	return({word.key, df:total});}";
 		
 		String mapTF="function mapTF(){	var text=this.comment;	var words=text.match(/\\w+/g);	var tf=[];	for(i in words){if(tf[words[i]]==null){	tf[words[i]]=1;}else{tf[words[i]]++;}}for(w in tf){emit(this._id);}}";
 		String reduceTF="function reduceTF(key, value){	return({doc: key, tfs: value});}";
@@ -19,7 +19,7 @@ public class RechercheMapReduce {
 			System.out.println(obj.toString());
 		}
 	}
-<<<<<<< HEAD
+
 
 	public static void main(String args[]){
 		try{
@@ -28,7 +28,5 @@ public class RechercheMapReduce {
 			e.printStackTrace();
 		}
 	}
-	
-=======
->>>>>>> 83ee50278f82fcf19326895c336ebe0fad3e4160
+
 }
