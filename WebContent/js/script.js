@@ -107,7 +107,19 @@ $(document).ready(function(){ // attendre que le document soit chargé
 	
 
 	});
+	
+	$('#logo_left').click(function(){
+		
+		if(env.actif == undefined){
+			window.location.href="main.jsp";
+		}else{
+			window.location.href="main.jsp?id="+env.id+"&login="+env.actif.login+"&key="+env.key;
 
+		}
+		
+	
+
+	});
 });
 
 function updateWindowOnClick(){
