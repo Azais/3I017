@@ -1,12 +1,13 @@
 $(document).ready(function(){ // attendre que le document soit chargé
 
-    
+    /*
     $('#main').on('click', '.picture_like', function(){
 		var src = ($(this).attr('src') === 'square_heart.png')
 		? 'square_heart_dead.png'
 		: 'square_heart.png';
 		$(this).attr('src', src);
     });
+    * /
 /*
 	$('.picture_friend').on({
 		'click': function() {
@@ -148,6 +149,36 @@ function updateWindowFollow(){
         $('.picture_friend', elem).attr('src', src);
     });
 };
-                        
+
+function updateHeartOnClick(){
+	console.log("entré");
+    $('.comment_meta').each(function(index, elem){
+        console.log(elem);
+        var idUser=env.recherche.resultats[index].auteur.id;
+        var src = ((env.recherche.resultats[index].likes) ? 'square_heart.png': 'square_heart_dead.png');
+        console.log("point 1 src: "+src);
+        $('.picture_like', elem).attr('src', src);
+        $(elem).on('click','.picture_like',function(event){
+        	event.stopPropagation();
+        	console.log("point 2");
+            //var src = (($(this).attr('src'))=== 'square_profile_dead.png')? 'square_profile.png': 'square_profile_dead.png';
+            console.log("point 3");
+            //$(this).attr('src', src);
+            //console.log("point 4 src: "+src);
+            if(env.key!==undefined){
+                console.log("point 5");
+                likedis_comment(index);
+                console.log("point 6");
+                
+            }
+        });
+    });
+};
+function updateHeartFollow(i){
+	console.log("entré");
+	var src = ((env.recherche.resultats[i].likes) ? 'square_heart.png': 'square_heart_dead.png');
+    $('.picture_like',$('.comment_meta')[i]).attr('src', src);
+};
+             
 
                                          

@@ -100,4 +100,20 @@
 		<servlet-name>SetPicture</servlet-name>
 		<url-pattern>/SetPicture</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<servlet-name>LikeServlet</servlet-name>
+		<servlet-class>service.servlets.LikeServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>LikeServlet</servlet-name>
+		<url-pattern>/Like</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>DislikeServlet</servlet-name>
+		<servlet-class>service.servlets.DislikeServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DislikeServlet</servlet-name>
+		<url-pattern>/Dislike</url-pattern>
+	</servlet-mapping>
 </web-app>

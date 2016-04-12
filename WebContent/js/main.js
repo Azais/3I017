@@ -98,6 +98,7 @@ RechercheCommentaire.traiteReponseJSON=function(json){
 		$('#main').empty();
 		$('#main').prepend(r.getHtml());
         updateWindowOnClick();
+        updateHeartOnClick();
 	}else{
 		alert("erreur: "+obj.erreur);	
 	}
@@ -223,6 +224,40 @@ function ajoutsup_contact(index){
 		});
     
 }
+function likedis_comment(index){
+    
+	var url;
+    var idComment=env.recherche.resultats[index].id;
+    //console.log("idComment: "+idComment);
+	if(env.recherche.resultats[index].likes){
+		url="Dislike";
+	}else{
+		url="Like";
+		}
+	$.ajax({
+		type: "GET",
+		url: url,
+		data: "key="+env.key+"&id_comment="+idComment,
+		dataType: "json",
+		success: function(rep){
+            if(rep.erreur===undefined){
+                //console.log("point 7");
+                console.log("url "+ url)
+                env.recherche.resultats[index].likes=((url==="Like")?true:false);
+                //console.log("point 8: "+env.users[idUser].contact);
+                updateHeartFollow(index)
+            }else{
+                alert(rep.message);
+            }
+            
+		},
+		error: function(jqXHR, textStatus, errorThrown){
+			alert(textStatus);
+			}
+		});
+    
+}
+
 function func_new_comment(text){
 	//alert("text :"+text);
 	//alert("env.key :"+env.key);
