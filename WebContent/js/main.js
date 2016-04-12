@@ -187,11 +187,13 @@ function search(){
 	var friends=0;
 	var query='';
 	//var query= $("#requete").val();
-	
+	var dataQuery='';
+	if(query!=='')
+		dataQuery='&query='+query;
 	$.ajax({ 
 		type: "GET",
 		url: "ListMessage",
-		data: (env.key===undefined? "": "key="+env.key)+"&query="+query+"&friends="+friends,
+		data: (env.key===undefined? "": "key="+env.key)+dataQuery+"&friends="+friends,
 		dataType: "json",
 		success: RechercheCommentaire.traiteReponseJSON,
 		error: function(jqXHR, textStatus, errorThrown){
