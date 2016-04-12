@@ -182,14 +182,14 @@ function main (id, login, key, photo){
 }
 
 
-function search(){
+function search(query){
 	//var friends=($('#box_friends').get(0).checked)?1:0;
 	var friends=0;
-	var query='';
 	//var query= $("#requete").val();
 	var dataQuery='';
-	if(query!=='')
+	if(query!==undefined)
 		dataQuery='&query='+query;
+	console.log(query);
 	$.ajax({ 
 		type: "GET",
 		url: "ListMessage",

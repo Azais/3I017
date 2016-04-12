@@ -1,5 +1,7 @@
 $(document).ready(function(){ // attendre que le document soit chargé
-
+	$( "input:first" ).change(function(){
+		search($( "input:first" ).val());
+	});
     /*
     $('#main').on('click', '.picture_like', function(){
 		var src = ($(this).attr('src') === 'square_heart.png')
@@ -64,7 +66,7 @@ $(document).ready(function(){ // attendre que le document soit chargé
 	});
 
 */
-
+	
 	$('.picture_cancel').click(function() {
 		$(this).closest(".comment_general").hide();
 		
