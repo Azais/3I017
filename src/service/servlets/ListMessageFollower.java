@@ -16,7 +16,13 @@ public class ListMessageFollower extends HttpServlet {
 		Map<String, String[]> pars=requete.getParameterMap();
 		if(pars.containsKey("key")){
 			String key=requete.getParameter("key");
-			String res=UserServices.printComments(key);
+			String res;
+			if(pars.containsKey("query")){
+				String query=requete.getParameter("query");
+				res=UserServices.rechercheCommentaire(key, query);
+			}else{
+				res=UserServices.printComments(key);
+			}
 			reponse.setContentType("application/json");
 			PrintWriter out = reponse.getWriter();
 			out.print(res);

@@ -5,6 +5,8 @@ import java.util.Date;
 
 import org.bson.types.ObjectId;
 
+import service.UserServices;
+
 import bd.DBStatic;
 
 import com.mongodb.BasicDBObject;
@@ -21,22 +23,7 @@ public class TestObjectId {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		Mongo m;
-		try {
-			m = new Mongo(DBStatic.mango_host, DBStatic.mango_port);
-			DB db=m.getDB("gr2_foufa_keraro");
-			//db.createCollection("test", null);
-			DBCollection collection=db.getCollection("comments");
-			DBCursor crs=collection.find();
-			while(crs.hasNext()){
-				System.out.println(crs.next());
-			}
-		} catch (UnknownHostException | MongoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return;
-		}
+		System.out.println(UserServices.rechercheCommentaire("7e258cadc13c406496ae93b89dec575d", "grand jour"));
 		
 
 	}

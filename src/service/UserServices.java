@@ -9,13 +9,25 @@ package service;
 import java.net.UnknownHostException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
+import org.bson.types.ObjectId;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.mongodb.BasicDBList;
+import com.mongodb.BasicDBObject;
+import com.mongodb.DB;
+import com.mongodb.DBCollection;
+import com.mongodb.DBCursor;
+import com.mongodb.DBObject;
+import com.mongodb.Mongo;
 import com.mongodb.MongoException;
 
+import bd.DBStatic;
 import bd.KeyNotFoundException;
+import bd.RechercheMapReduce;
 import bd.UserTools;
 import bd.userNotFoundException;
 
@@ -435,5 +447,97 @@ public class UserServices {
 			res=ServiceTools.serviceRefused("clé de connection invalide",4);
 		}
 		return res;
+	}
+	public static String rechercheCommentaire(String key, String query){
+		
+		ArrayList<String> comments=null;
+		HashMap<Integer, String> mapPhotos=new HashMap<Integer, String>();
+		int idFollower=0;
+		try {
+			if(UserTools.keyVerified(key)){
+				try {
+					idFollower=UserTools.idKey(key);
+				} catch (KeyNotFoundException e) {
+					return ServiceTools.serviceRefused("cle n'existe pas", -5).toString();
+				}
+			}else{
+				return ServiceTools.serviceRefused("vous n'etes pas connecte", -3).toString();
+			}
+			comments=RechercheMapReduce.recherche(query);
+		
+			Mongo m;
+			try {
+				m = new Mongo(DBStatic.mango_host, DBStatic.mango_port);
+			} catch (UnknownHostException | MongoException e) {
+			// TODO Auto-generated catch block
+				return ServiceTools.serviceRefused("erreur mongo", -2).toString();
+			}
+			DB db=m.getDB("gr2_foufa_keraro");
+			DBCollection collection=db.getCollection("comments");
+			if (comments.size()==0){
+				return "[]";
+			}
+			StringBuffer res=new StringBuffer(256);
+			res.append("[");
+			BasicDBObject requete=new BasicDBObject();
+			String idC=comments.get(0);
+			requete.put("_id", new ObjectId(idC));
+			DBCursor crs=collection.find(requete);
+			if(crs.hasNext()){
+				DBObject comment=crs.next();
+				comment.put("id", idC);
+				comment.removeField("_id");
+				DBObject auteur=(DBObject) comment.get("auteur");
+				int idFollowed=(Integer) auteur.get("id");
+				boolean contact=UserTools.follows(idFollower, idFollowed);
+				auteur.put("contact", contact);
+				String photo=null;
+				if(mapPhotos.containsKey(idFollowed)){
+					photo=mapPhotos.get(idFollowed);
+				}else{
+					photo=UserTools.photoId(idFollowed);
+					mapPhotos.put(idFollowed, photo);
+					}
+				auteur.put("picture", photo);
+				comment.removeField("auteur");
+				
+				comment.put("auteur", auteur);
+				comment.put("likes",UserTools.commentLiked(idFollower, idC));
+				res.append(comment);
+			}
+			for(int i=1; i<comments.size();i++){
+				requete=new BasicDBObject();
+				String idComment=comments.get(i);
+				requete.put("_id", new ObjectId(idComment));
+				crs=collection.find(requete);
+				if(crs.hasNext()){
+					DBObject comment=crs.next();
+					comment.put("id", idC);
+					comment.removeField("_id");
+					DBObject auteur=(DBObject) comment.get("auteur");
+					int idFollowed=(Integer) auteur.get("id");
+					boolean contact=UserTools.follows(idFollower, idFollowed);
+					auteur.put("contact", contact);
+					String photo=null;
+					if(mapPhotos.containsKey(idFollowed)){
+						photo=mapPhotos.get(idFollowed);
+					}else{
+						photo=UserTools.photoId(idFollowed);
+						mapPhotos.put(idFollowed, photo);
+						}
+					auteur.put("picture", photo);
+					comment.removeField("auteur");
+					
+					comment.put("auteur", auteur);
+					comment.put("likes",UserTools.commentLiked(idFollower, idC));
+					res.append(","+comment);
+				}
+			}
+			res.append(']');
+			return res.toString();
+		}catch(SQLException e){
+			return ServiceTools.serviceRefused("sql erreur", -1).toString();
+		}
+		
 	}
 }
