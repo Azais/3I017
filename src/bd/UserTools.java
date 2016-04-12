@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Set;
 import java.util.UUID;
 
@@ -257,6 +258,7 @@ public class UserTools {
 		DB db=m.getDB("gr2_foufa_keraro");
 		DBCollection collection= db.getCollection("comments");
 		DBCursor crs=collection.find().sort(new BasicDBObject("postDate", -1));
+		HashMap<Integer, String> mapPhotos=new HashMap<Integer, String>();
 		if(crs.hasNext()){
 			String res="[";
 			DBObject comment=crs.next();
@@ -268,7 +270,13 @@ public class UserTools {
 			boolean contact=follows(idFollower, idFollowed);
 			//System.out.println(idFollowed);
 			auteur.put("contact", contact);
-			String photo=photoId(idFollowed);
+			String photo=null;
+			if(mapPhotos.containsKey(idFollowed)){
+				photo=mapPhotos.get(idFollowed);
+			}else{
+				photo=photoId(idFollowed);
+				mapPhotos.put(idFollowed, photo);
+				}
 			//System.out.println(photo);
 			auteur.put("picture", photo);
 			comment.removeField("auteur");
@@ -285,7 +293,12 @@ public class UserTools {
 				idFollowed=(Integer) auteur.get("id");
 				contact=follows(idFollower, idFollowed);
 				auteur.put("contact", contact);
-				photo=photoId(idFollowed);
+				if(mapPhotos.containsKey(idFollowed)){
+					photo=mapPhotos.get(idFollowed);
+				}else{
+					photo=photoId(idFollowed);
+					mapPhotos.put(idFollowed, photo);
+				}
 				auteur.put("picture", photo);
 				comment.removeField("auteur");
 				comment.put("auteur", auteur);
@@ -439,7 +452,7 @@ public class UserTools {
 	
 	public static void register(String login, String nom, String prenom, String password, String photo) throws SQLException{
 		Connection conn=DataBase.getMySqlConnection();
-		String update ="INSERT INTO users (login, nom, prenom, password) VALUES ('"+login+"', '"+nom+"', '"+prenom+"', '"+password+"', '"+photo+"');";
+		String update ="INSERT INTO users (login, nom, prenom, password, picture) VALUES ('"+login+"', '"+nom+"', '"+prenom+"', '"+password+"', '"+photo+"');";
 		Statement st =(Statement)conn.createStatement();
 		st.execute(update);
 		st.close();
