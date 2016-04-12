@@ -37,7 +37,7 @@
 		</script>
 		<div id="header">
 		<div id="top">
-			<div id="logo"> <a href="main.jsp"><img id="logo_left" src="LogoTwit.png"></a> </div>
+			<div id="logo"> <img id="logo_left" src="LogoTwit.png"></div>
 			<div id="search">
 				<form  action="javascript:(function(){return;})()">
 				<div class="searchbar">
@@ -85,24 +85,25 @@
 				
 				
 				<div class="ids"><span>Changer votre photo de profil. Vous êtes</span>
-				<select name="photoprofil">
-					<option value="1.jpg">Dieu</option>
-	 				<option value="Ada_Lovelace.jpeg">Ada</option>
-	 				<option value="AfghanGirl.jpg">Une jeune afghane</option>
-	 				<option value="AmericanGothic.jpg">Un couple étrange</option>
-	 				<option value="Astronaute.jpg">Sur la lune</option>
-					<option value="Che.jpeg">El Che</option>
-					<option value="DameHermine.jpg">Peinte par Léonard de Vinci</option>
-					<option value="FilsHomme.jpg">Le Fils de l'Homme</option>
-					<option value="JeuneFillePerle.jpg">La Jeune Fille à la Perle</option>
-					<option value="LaLaitiere.jpg">En train de faire des yaourts</option>
-					<option value="LeCri.jpg">Angoissé</option>
-					<option value="LouisXIV.jpg">L'état</option>
-					<option value="Napoleon.jpg">Petit</option>
-					<option value="Turing.jpg">Adam moderne</option>
-					<option value="US_Recession.jpg">En pleine récession</option>
-
-</select>		</div>
+					<select name="photoprofil">
+						<option value="1.jpg">Dieu</option>
+		 				<option value="Ada_Lovelace.jpeg">Ada</option>
+		 				<option value="AfghanGirl.jpg">Une jeune afghane</option>
+		 				<option value="AmericanGothic.jpg">Un couple étrange</option>
+		 				<option value="Astronaute.jpg">Sur la lune</option>
+						<option value="Che.jpeg">El Che</option>
+						<option value="DameHermine.jpg">Peinte par Léonard de Vinci</option>
+						<option value="FilsHomme.jpg">Le Fils de l'Homme</option>
+						<option value="JeuneFillePerle.jpg">La Jeune Fille à la Perle</option>
+						<option value="LaLaitiere.jpg">En train de faire des yaourts</option>
+						<option value="LeCri.jpg">Angoissé</option>
+						<option value="LouisXIV.jpg">L'état</option>
+						<option value="Napoleon.jpg">Petit</option>
+						<option value="Turing.jpg">Adam moderne</option>
+						<option value="US_Recession.jpg">En pleine récession</option>
+	
+					</select>		
+				</div>
 				<div class="buttons">
 					<input type="submit" value="Changer" />
 					<input type="reset" value="Annuler" />

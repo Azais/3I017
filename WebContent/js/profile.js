@@ -5,7 +5,7 @@ function setProfile(form){
 	var photo = form.photoprofil.value;
 
 	if(newpassword.length > 0){
-			alert("nouveau mot de passe"+newpassword);
+
 			setPassword(password, newpassword);
 		}
 	
