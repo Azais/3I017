@@ -51,16 +51,20 @@ Commentaire.prototype.getHtml=function(){
 										s+="<div class='text_comment'>"+this.texte+"</div>";
 										s+="</div>";
 										s+="<div class='comment_meta'>";
-										s+="<div class='comment_like'><img class='picture_like' src='square_heart.png'></div>";
+										
+										if(env.actif != undefined){
+											if(env.actif.login != this.auteur.login){
+												s+="<div class='comment_like'><img class='picture_like' src='square_heart.png'></div>";
 										
                                 
-										s+="<div class='comment_friend'  >";
-										if(this.follows){
-											s+="<img class='picture_friend' src='square_profile.png'></div>";
-										}else{
-											s+="<img class='picture_friend' src='square_profile_dead.png'></div>";
+												s+="<div class='comment_friend'  >";
+												if(this.follows){
+													s+="<img class='picture_friend' src='square_profile.png'></div>";
+												}else{
+													s+="<img class='picture_friend' src='square_profile_dead.png'></div>";
+												}
+											}
 										}
-										
 										s+="<div class='author_comment'>"+this.auteur.login+"</div>";
 										s+="<div class='date_comment'>"+this.date+"</div>";
 										s+="<div class='comment_cancel'><img class='picture_cancel' src='square_stop-icon_dead.png'></div>";

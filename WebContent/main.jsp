@@ -37,7 +37,7 @@
 		</script>
 		<div id="header">
 		<div id="top">
-			<div id="logo"> <a href="main.jsp"><img id="logo_left" src="LogoTwit.png"></a> </div>
+			<div id="logo"> <img id="logo_left" src="LogoTwit.png"> </div>
 			<div id="search">
 				<form  action="javascript:(function(){return;})()">
 				<div class="searchbar">

@@ -100,7 +100,7 @@ $(document).ready(function(){ // attendre que le document soit chargé
 		if(env.actif == undefined){
 			window.location.href="connexion.html";
 		}else{
-			window.location.href="monprofil.jsp?id="+env.id+"&login="+env.actif.login+"&key="+env.key;
+			window.location.href="monprofil.jsp?id="+env.actif.id+"&login="+env.actif.login+"&key="+env.key;
 
 		}
 		

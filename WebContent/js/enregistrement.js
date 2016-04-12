@@ -4,9 +4,10 @@ function enregistrement(form){
 	var prenom = form.prenom.value;
 	var nom = form.nom.value;
 	var password2 = form.pass2.value;
+	var photo = form.photoprofil.value;
 	var ok = verif_form_enregistrement(login, password, password2, prenom, nom);
 	if(ok){
-		enregistre(prenom, nom, login, password);
+		enregistre(prenom, nom, login, password, photo);
 		}
 }
 
@@ -49,11 +50,11 @@ function verif_form_enregistrement(login, password, password2, prenom, nom){
 	return true;
 }
 
-function enregistre(prenom, nom, login, password){
+function enregistre(prenom, nom, login, password, photo){
 	$.ajax({
 	type: "GET",
 	url: "user/createuser",
-	data:"login="+login+"&password="+password+"&nom="+nom+"&prenom="+prenom,
+	data:"login="+login+"&password="+password+"&nom="+nom+"&prenom="+prenom+"&photo="+photo,
 	dataType: "json",
 	success: function(rep){
 		
