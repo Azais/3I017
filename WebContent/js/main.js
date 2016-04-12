@@ -41,10 +41,11 @@ Commentaire.prototype.getHtml=function(){
 										var s="<div class='comment_general'>"
 									
 										s+="<div class='comment'> ";
-										var photoP ="undefined.jpg";
-										$.get("img/"+this.auteur.photo)
-									    .done(function() { 
-									        photoP = this.auteur.photo;
+										var photoP =this.auteur.photo;
+										
+										$.get("img/"+photoP)
+									    .fail(function() { 
+									        photoP = "undefined.jpg";
 									    })
 										s+="<div class='comment_picture'><img class='comment_img' src='img/"+photoP+"' ></div>";
 										s+="<div class='text_comment'>"+this.texte+"</div>";

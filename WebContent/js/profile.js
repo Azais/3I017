@@ -2,11 +2,30 @@ function setProfile(form){
 
 	var password = form.pass.value;
 	var newpassword = form.newpass.value;
+	var photo = form.photoprofil.value;
 
 	if(newpassword.length > 0){
 			alert("nouveau mot de passe"+newpassword);
 			setPassword(password, newpassword);
 		}
+	
+	if(photo.length > 0){
+		
+		setPicture(photo);
+		
+		
+	}
+	
+}
+
+function fileExists(filename){
+	
+	$.get("img/"+filename)
+    .done(function() { 
+        return true;
+    })
+    
+    return false;
 	
 }
 
@@ -17,7 +36,21 @@ function setPassword(password, newpass){
 		url: "SetPassword",
 		data:"key="+env.key+"&oldPass="+password+"&newPass="+newpass,
 		dataType: "json",
-		success: function(rep){alert("ok")},
+		success: function(rep){},
+		error: function (jqXMTR, textStatus, errorThrown){
+				alert(textStatus);			
+			}
+	});
+}
+
+function setPicture(photo){
+	//alert("Connexion de "+login);
+	$.ajax({
+		type: "GET",
+		url: "SetPicture",
+		data:"key="+env.key+"&newPicture="+photo,
+		dataType: "json",
+		success: function(rep){},
 		error: function (jqXMTR, textStatus, errorThrown){
 				alert(textStatus);			
 			}

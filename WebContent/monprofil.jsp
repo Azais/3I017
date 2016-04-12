@@ -81,6 +81,11 @@
 				<div class="ids"><span>Nouveau mot de passe</span>
 					<input type="password" name="newpass" />
 				</div>
+				
+				<div class="ids"><span>Nouvelle photo</span>
+					<input type="text" name="photoprofil" />
+				</div>
+				
 				<div class="buttons">
 					<input type="submit" value="Changer" />
 					<input type="reset" value="Annuler" />
