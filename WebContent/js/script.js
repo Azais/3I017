@@ -111,7 +111,7 @@ $(document).ready(function(){ // attendre que le document soit chargé
 
 	});
 
-})
+});
 
 function updateWindowOnClick(){
 	console.log("entré");
@@ -121,7 +121,8 @@ function updateWindowOnClick(){
         var src = ((env.users[idUser].contact) ? 'square_profile.png': 'square_profile_dead.png');
         console.log("point 1 src: "+src);
         $('.picture_friend', elem).attr('src', src);
-        $(elem).on('click','.picture_friend',function(){
+        $(elem).on('click','.picture_friend',function(event){
+        	event.stopPropagation();
         	console.log("point 2");
             //var src = (($(this).attr('src'))=== 'square_profile_dead.png')? 'square_profile.png': 'square_profile_dead.png';
             console.log("point 3");
@@ -133,9 +134,10 @@ function updateWindowOnClick(){
                 console.log("point 6");
                 
             }
-        })
-    })
-}
+        });
+    });
+};
+
 function updateWindowFollow(){
 	console.log("entré");
     $('.comment_meta').each(function(index, elem){
@@ -144,8 +146,8 @@ function updateWindowFollow(){
         var src = ((env.users[idUser].contact) ? 'square_profile.png': 'square_profile_dead.png');
         console.log("point 1 src: "+src);
         $('.picture_friend', elem).attr('src', src);
-    })
-}
+    });
+};
                         
 
                                          

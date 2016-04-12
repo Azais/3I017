@@ -19,6 +19,7 @@ User.prototype.modifystatus=function(){
 function isNumber(s){
 	return (! isNaN(s-0));
 }
+
 function Commentaire(id, auteur, texte, date, like, score){
 	this.id=id;
 	this.auteur=auteur;
@@ -79,6 +80,7 @@ function RechercheCommentaire(resultats){
 		var s = "";
 		//alert(this.resultats);
 		for(var i=0; i<this.resultats.length;i++){
+			console.log("i: "+i+" "+this.resultats[i]);
 			s+=this.resultats[i].getHtml();
 		}
 		
@@ -113,7 +115,7 @@ RechercheCommentaire.revival=function revival(key, value){
 			return(value);
 		}
 	}else{ 
-		if (isNumber(key)&& value.text != '') {
+		if (isNumber(key)/*&& value.text != ''*/) {
 			console.log('key: '+key+' value: '+value.text);
 			var c = new Commentaire(value.id, value.auteur, value.text, value.postDate, value.likes, value.follows);
 			
@@ -156,13 +158,13 @@ function isConnected(env){
 	}
 }
 
-function main (id, login, key){
+function main (id, login, key, photo){
 	env={};
 	env.users=[];
 	if(!(id==null)){
 		
 		env.key=key;
-		env.actif=new User(id, login);
+		env.actif=new User(id, login, true, photo);
 		//gererDivConnection();
 		}
 	isConnected(env);
@@ -206,9 +208,10 @@ function ajoutsup_contact(index){
 		success: function(rep){
             if(rep.erreur===undefined){
                 console.log("point 7");
-                env.users[idUser].contact=((url==="addFriend")?true:false);
+                console.log("url "+ url)
+                env.users[idUser].contact=((url==="AddFriend")?true:false);
                 console.log("point 8: "+env.users[idUser].contact);
-                updateWindowOnClick();
+                updateWindowFollow();
             }else{
                 alert(rep.message);
             }

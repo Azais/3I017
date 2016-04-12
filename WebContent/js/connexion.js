@@ -42,7 +42,7 @@ function traiteReponseConnexion(rep, login){
 	if(rep.erreur != undefined){
 		func_erreur(rep.erreur);
 	}else{
-		window.location.href="main.jsp?id="+rep.id+"&login="+login+"&key="+rep.key;
+		window.location.href="main.jsp?id="+rep.id+"&login="+login+"&key="+rep.key+"&picture="+rep.picture;
 	}
 }
 

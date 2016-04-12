@@ -5,7 +5,7 @@ import com.mongodb.*;
 public class RechercheMapReduce {
 	public static void indexation() throws UnknownHostException, MongoException{
 		String mapDF="function map(){" +
-							"var text=this.comment;" +
+							"var text=this.comments;" +
 							"var words=text.match(/\\w+/g);" +
 							"var df=[];" +
 							"for (w in words){" +
@@ -14,8 +14,15 @@ public class RechercheMapReduce {
 									"}for(w in df){" +
 									"emit(w,{df:1});" +
 									"}" +
+							"}" +
 							"}";
-		String reduceDF="function reduce(key, values){	var total=0;	for(i in values){		total+=values[i].df;	};	return({word.key, df:total});}";
+		String reduceDF="function reduce(key, values){	" +
+				"var total=0;	" +
+				"for(i in values){		" +
+					"total+=values[i].df;	" +
+					"};	" +
+					"return({word: key, df:total});" +
+					"}";
 		
 		String mapTF="function mapTF(){	" +
 				"						var text=this.comment;	" +
@@ -32,7 +39,9 @@ public class RechercheMapReduce {
 										"	emit(this._id);" +
 										"}" +
 									"}";
-		String reduceTF="function reduceTF(key, value){	return({doc: key, tfs: value});}";
+		String reduceTF="function reduceTF(key, value){	" +
+				"return({doc: key, tfs: value});" +
+				"}";
 		
 		Mongo m=new Mongo(DBStatic.mango_host, DBStatic.mango_port);
 		DB db=m.getDB("gr2_foufa_keraro");

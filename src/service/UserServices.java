@@ -185,6 +185,8 @@ public class UserServices {
 						JSONObject res=new JSONObject();
 						res.put("key", clef);
 						res.put("id", id);
+						res.put("picture", UserTools.photoId(id));
+						res.put("follow", true);
 						
 						return res;
 					}catch(KeyNotFoundException e){

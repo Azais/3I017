@@ -19,10 +19,11 @@
 					String id=request.getParameter("id");
 					String login=request.getParameter("login");
 					String key=request.getParameter("key");
+					String picture=request.getParameter("picture");
 	
 					
 					if((id!=null)&&(login!=null)&&(key!=null)){
-						out.println("main ('"+id+"','"+login+"','"+key+"');");
+						out.println("main ('"+id+"','"+login+"','"+key+"','"+picture+"');");
 						
 					}else{
 						out.println("main();");
