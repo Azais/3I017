@@ -27,19 +27,11 @@ public class TestObjectId {
 			m = new Mongo(DBStatic.mango_host, DBStatic.mango_port);
 			DB db=m.getDB("gr2_foufa_keraro");
 			//db.createCollection("test", null);
-			DBCollection collection=db.getCollection("test");
-			BasicDBObject query=new BasicDBObject();
-			Date now=new Date();
-			query.put("moi", 2);
-			query.put("postDate", now);
-			System.out.println(query);
-			collection.insert(query);
+			DBCollection collection=db.getCollection("comments");
 			DBCursor crs=collection.find();
 			while(crs.hasNext()){
-				ObjectId Oid=(ObjectId)crs.next().get("_id");
-				System.out.println(Oid);
+				System.out.println(crs.next());
 			}
-				
 		} catch (UnknownHostException | MongoException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
