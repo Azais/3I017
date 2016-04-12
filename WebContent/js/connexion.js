@@ -47,8 +47,8 @@ function traiteReponseConnexion(rep, login){
 }
 
 function func_erreur(msg){
-	var msg_box ="<div id='msg_erreur_connexion'>"+msg+"</div>";
-	var old_msg = $("#msg_erreur_connexion"); // on recupere l'objet HTML
+	var msg_box ="<div id='msg_erreur'>"+msg+"</div>";
+	var old_msg = $("#msg_erreur"); // on recupere l'objet HTML
 	if(old_msg.length===0){
 		$(".erreur_box").prepend(msg_box);	
 	}else{

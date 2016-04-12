@@ -57,6 +57,7 @@ function enregistre(prenom, nom, login, password, photo){
 	data:"login="+login+"&password="+password+"&nom="+nom+"&prenom="+prenom+"&photo="+photo,
 	dataType: "json",
 	success: function(rep){
+		func_ok("Vous êtes bien enregistré(e)")
 		
 	},
 	error: function (jqXMTR, textStatus, errorThrown){
@@ -68,8 +69,18 @@ function enregistre(prenom, nom, login, password, photo){
 
 
 function func_erreur(msg){
-	var msg_box ="<div id='msg_erreur_connexion'>"+msg+"</div>";
-	var old_msg = $("#msg_erreur_connexion"); // on recupere l'objet HTML
+	var msg_box ="<div id='msg_erreur'>"+msg+"</div>";
+	var old_msg = $("#msg_erreur"); // on recupere l'objet HTML
+	if(old_msg.length===0){
+		$(".erreur_box").prepend(msg_box);	
+	}else{
+		old_msg.replaceWith(msg_box);
+	}
+}
+
+function func_ok(msg){
+	var msg_box ="<div id='msg_ok'>"+msg+"</div>";
+	var old_msg = $("#msg_erreur"); // on recupere l'objet HTML
 	if(old_msg.length===0){
 		$(".erreur_box").prepend(msg_box);	
 	}else{

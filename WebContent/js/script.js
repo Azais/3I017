@@ -42,7 +42,20 @@ $(document).ready(function(){ // attendre que le document soit chargé
 		$(this).attr('src', src);
 		
 	});
-
+	
+	
+/*
+	$('#main').on('click', '.comment_picture', function() {
+	
+		var general = $(this).closest('.comment_general');
+		console.log("general :"+general);
+		var meta = general.find('comment_meta');
+		console.log(meta);
+		var login = meta.find('author_comment');
+		console.log(login.text());
+		userProfile(login.text());
+	});
+*/
 
 /* Maniere 1 pour faire disparaitre du feed
 	$('.picture_cancel').click(function() {
@@ -122,38 +135,40 @@ $(document).ready(function(){ // attendre que le document soit chargé
 	});
 });
 
+
 function updateWindowOnClick(){
 	console.log("entré");
     $('.comment_meta').each(function(index, elem){
         console.log(elem);
         var idUser=env.recherche.resultats[index].auteur.id;
         var src = ((env.users[idUser].contact) ? 'square_profile.png': 'square_profile_dead.png');
-        console.log("point 1 src: "+src);
+   
         $('.picture_friend', elem).attr('src', src);
         $(elem).on('click','.picture_friend',function(event){
         	event.stopPropagation();
-        	console.log("point 2");
+       
             //var src = (($(this).attr('src'))=== 'square_profile_dead.png')? 'square_profile.png': 'square_profile_dead.png';
-            console.log("point 3");
+  
             //$(this).attr('src', src);
             //console.log("point 4 src: "+src);
             if(env.key!==undefined){
-                console.log("point 5");
+        
                 ajoutsup_contact(index);
-                console.log("point 6");
+         
                 
             }
         });
     });
 };
 
+
 function updateWindowFollow(){
 	console.log("entré");
     $('.comment_meta').each(function(index, elem){
-        console.log(elem);
+    
         var idUser=env.recherche.resultats[index].auteur.id;
         var src = ((env.users[idUser].contact) ? 'square_profile.png': 'square_profile_dead.png');
-        console.log("point 1 src: "+src);
+
         $('.picture_friend', elem).attr('src', src);
     });
 };
@@ -161,32 +176,63 @@ function updateWindowFollow(){
 function updateHeartOnClick(){
 	console.log("entré");
     $('.comment_meta').each(function(index, elem){
-        console.log(elem);
+   
         var idUser=env.recherche.resultats[index].auteur.id;
         var src = ((env.recherche.resultats[index].likes) ? 'square_heart.png': 'square_heart_dead.png');
-        console.log("point 1 src: "+src);
+
         $('.picture_like', elem).attr('src', src);
         $(elem).on('click','.picture_like',function(event){
         	event.stopPropagation();
-        	console.log("point 2");
+
             //var src = (($(this).attr('src'))=== 'square_profile_dead.png')? 'square_profile.png': 'square_profile_dead.png';
-            console.log("point 3");
+
             //$(this).attr('src', src);
             //console.log("point 4 src: "+src);
             if(env.key!==undefined){
-                console.log("point 5");
+            
                 likedis_comment(index);
-                console.log("point 6");
+        
                 
             }
         });
     });
 };
 function updateHeartFollow(i){
-	console.log("entré");
+
 	var src = ((env.recherche.resultats[i].likes) ? 'square_heart.png': 'square_heart_dead.png');
     $('.picture_like',$('.comment_meta')[i]).attr('src', src);
 };
-             
 
-                                         
+function userProfile(login){
+	if(env.actif == undefined){
+		window.location.href="main.jsp?profil="+login;
+	}else{
+		window.location.href="main.jsp?id="+env.id+"&login="+env.actif.login+"&key="+env.key+"&profil="+login;
+
+	}
+	
+}
+
+function accessProfile(){
+	console.log("profil");
+    $('.comment_meta').each(function(index, elem){
+        console.log(elem);
+        var idUser=env.recherche.resultats[index].auteur.id;
+        console.log(idUser);
+   
+        $(elem).on('click','.author_comment',function(event){
+        	event.stopPropagation();
+       
+            //var src = (($(this).attr('src'))=== 'square_profile_dead.png')? 'square_profile.png': 'square_profile_dead.png';
+  
+            //$(this).attr('src', src);
+            //console.log("point 4 src: "+src);
+            if(env.key!==undefined){
+        
+                userProfile(idUser);
+         
+                
+            }
+        });
+    });
+};
