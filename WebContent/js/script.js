@@ -97,16 +97,12 @@ $(document).ready(function(){ // attendre que le document soit chargé
 	
 	$('#profil').click(function(){
 		
-		$.ajax({
-			type: "GET",
-			url: "monprofil.jsp",
-			data:"key="+env.key+"&login="+env.actif.login+"&id="+env.actif.id,
-			dataType: "json",
-			success: function(rep){traiteReponseConnexion(rep, login)},
-			error: function (jqXMTR, textStatus, errorThrown){
-					alert(textStatus);			
-				}
-		});
+		if(env.actif == undefined){
+			window.location.href="connexion.html";
+		}else{
+			window.location.href="monprofil.jsp?id="+env.id+"&login="+env.actif.login+"&key="+env.key;
+
+		}
 		
 	
 

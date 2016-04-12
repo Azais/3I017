@@ -41,7 +41,12 @@ Commentaire.prototype.getHtml=function(){
 										var s="<div class='comment_general'>"
 									
 										s+="<div class='comment'> ";
-										s+="<div class='comment_picture'><img class='comment_img' src='img/"+this.auteur.photo+"'></div>";
+										var photoP ="undefined.jpg";
+										$.get("img/"+this.auteur.photo)
+									    .done(function() { 
+									        photoP = this.auteur.photo;
+									    })
+										s+="<div class='comment_picture'><img class='comment_img' src='img/"+photoP+"' ></div>";
 										s+="<div class='text_comment'>"+this.texte+"</div>";
 										s+="</div>";
 										s+="<div class='comment_meta'>";
