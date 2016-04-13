@@ -18,7 +18,7 @@ public class SetPicture extends HttpServlet {
 
 	public void doGet(HttpServletRequest requete, HttpServletResponse reponse) throws ServletException, IOException {
 		Map<String, String[]> pars=requete.getParameterMap();
-		JSONObject rep=ServiceTools.serviceRefused("Erreur paramètres", -4);
+		JSONObject rep=ServiceTools.serviceRefused("Erreur paramètres", -1);
 		if(pars.containsKey("key")&&pars.containsKey("newPicture")){
 			String key=requete.getParameter("key");
 			String picture=requete.getParameter("newPicture");
